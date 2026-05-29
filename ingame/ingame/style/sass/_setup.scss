@@ -1,0 +1,95 @@
+﻿//基本設定
+$grid-breakpoints: (
+	xs: 420px,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1280px,
+	xxl: 1600px
+);
+
+//斷點設定 @include devices(斷點代號)
+//橫直向dir(landscape / portrait)
+@mixin devices($breakpoint) {
+    @each $breakpoints, $size in $grid-breakpoints {
+        @if $breakpoint==$breakpoints {
+            @media (min-width: $size) {
+                @content;
+            }
+        }
+    }
+}
+@mixin dir($devices) {
+	@media (orientation:$devices){
+		@content;
+	}
+}
+@mixin devicesordir($breakpoint, $devices) {
+	@each $breakpoints, $size in $grid-breakpoints {
+		@if $breakpoint==$breakpoints {
+			@media (min-width: $size) and (orientation:$devices){
+				@content;
+			}
+		}
+	}
+}
+@mixin flexboxSetting($justify){
+	display: flex;
+	justify-content: $justify;
+	flex-wrap:wrap;
+	@content;
+}
+
+
+
+ //漸層設定
+ 	//線性漸層由上到下
+ @mixin gradientLinear($topColor, $bottomColor){
+ 	background: $topColor; /* Old browsers */
+	background: linear-gradient(to bottom,  $topColor 20%,$bottomColor 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ }
+ 	//線性對稱漸層(左右對稱)
+ @mixin gradientLinear_symmetry($sideColor, $toCenterColor, $centerColor){
+	background-image: $centerColor;
+	background-image: linear-gradient(to left, $sideColor 0%, $toCenterColor 20%, $centerColor 40%, $centerColor  60%, $toCenterColor 80%, $sideColor 100%);
+}
+
+	//線性對稱漸層(上下對稱)
+@mixin gradientLinear_symmetryTop($sideColor, $centerColor){
+	background-image: $centerColor;
+	background-image: linear-gradient(to bottom, $sideColor 0%, $sideColor 20%, $centerColor 40%, $centerColor 60%, $sideColor 80%, $sideColor 100%);
+}
+
+//文字大小設定
+@mixin fontSize($font-min, $font-max){
+	font-size: calc(#{$font-min}px + (#{$font-max} - #{$font-min}) * ((100vw - 768px) / (1600 - 768)));
+	font-size: clamp(#{$font-min}px, calc((#{$font-max} / #{$baseWidth}) * 100vw), #{$font-max}px);
+	@media (min-aspect-ratio: 16/9) {
+		font-size: calc(#{$font-min}px + ((#{$font-max} - #{$font-min}) * ((100vh - 350px) /(1080 - 350))));
+		font-size: clamp(#{$font-min}px, calc((#{$font-max} / #{$baseHeight}) * 100vh), #{$font-max}px);
+	}
+	@media (min-aspect-ratio: 9/16) and (orientation: portrait) {
+		line-height: 1.25em;
+		font-size: calc(#{$font-min}px + ((#{$font-max - 8} - #{$font-min}) * ((100vh - 350px) /(1080 - 350))));
+		font-size: clamp(#{$font-min}px, calc((#{$font-max - 8} / #{$baseWidth}) * 100vh), #{$font-max - 8}px);
+	}
+	@media (max-aspect-ratio: 9/16) and (orientation: portrait) {
+		line-height: 1.5em;
+		font-size: calc(#{$font-min}px + ((#{$font-max} - #{$font-min}) * ((100vw - 350px) /(1920 - 350))));
+		font-size: clamp(#{$font-min}px, calc((#{$font-max} / #{$baseHeight}) * 100vw), #{$font-max}px);
+	}
+}
+//文字描邊
+@function stroke($stroke, $color) {
+    $shadow: ();
+    $from: $stroke*-1;
+    @for $i from $from through $stroke {
+        @for $j from $from through $stroke {
+            $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
+        }
+    }
+    @return $shadow;
+}
+@mixin stroke($stroke, $color) {
+    text-shadow: stroke($stroke, $color);
+}

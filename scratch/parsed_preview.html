@@ -1,0 +1,419 @@
+<div id="ingame__view">
+		
+		<!-- DIV框架 -->
+		<div class="ingame__wrapper">
+			<div class="ingame__container">
+				<div class="gameswitch">
+					<!-- 目前 active 的賽事 -->
+					<div class="gameswitch--active" data-stage="" id="gsSwitchActive"><img src="/ingame-assets/images/text_team7.png" alt="冠軍決賽"></div>
+					<!-- 賽事列表：由 JS 填入已開放的階段 -->
+					<div class="gameswitch__list" id="gsSwitchList">
+<div class="switch__item active" data-stage="CHAMPION"><img src="/ingame-assets/images/text_team7.png" alt="冠軍決賽"></div>
+<div class="switch__item" data-stage="THIRD_PLACE"><img src="/ingame-assets/images/text_team6.png" alt="季軍賽"></div>
+<div class="switch__item" data-stage="SEMI_FINAL"><img src="/ingame-assets/images/text_team5.png" alt="準決賽"></div>
+<div class="switch__item" data-stage="QUARTER_FINAL"><img src="/ingame-assets/images/text_team4.png" alt="半準決賽"></div>
+<div class="switch__item" data-stage="ROUND_16"><img src="/ingame-assets/images/text_team3.png" alt="16強"></div>
+<div class="switch__item" data-stage="ROUND_32"><img src="/ingame-assets/images/text_team2.png" alt="32強"></div>
+<div class="switch__item" data-stage="GROUP"><img src="/ingame-assets/images/text_team1.png" alt="分組賽"></div>
+</div>
+				</div>
+				<div class="gameinfo">
+					<div class="info__userHave">
+						<p class="text">持有</p>
+						<img src="/ingame-assets/images/ticket-1.png" alt="競猜券" id="ticketImg">
+						<p class="num" id="itemAmountDisplay">123,456</p>
+					</div>
+					<div class="info__countdownTime">
+						<p class="value" id="countdownDisplay">12天 05時 30分</p>
+					</div>
+				</div>
+				<div class="game__banner"><p>國際足球賽事預測成功拿獎金</p></div>
+			<div class="game__banner"><p>國際足球賽事預測成功拿獎金</p></div>
+<div class="gameallawards">
+					<img src="/ingame-assets/images/info_award1.png" alt="總獎金" id="awardImage">
+				</div>
+				<div class="gamemain">
+					<div class="swiper gamemain-bet">
+						<!-- 由 JS 依選中階段填入 -->
+						<div class="swiper-wrapper" id="mainBetWrapper">
+<div class="swiper-slide off winbet">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_L.png" alt="預測L組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv1.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee has-winner" style="overflow:hidden;">
+        <li class="win" style="overflow:hidden;position:relative;opacity:1;top:0px;left:0px;"><img src="/ingame-assets/images/Flag_of_Australia_c.png" title="澳洲" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Panama_c.png" title="巴拿馬" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_England_c.png" title="英格蘭" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Iran_c.png" title="伊朗" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>10,000,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：123</p></div>
+    
+  </div>
+</div>
+<div class="swiper-slide swiper-slide-active">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_A.png" alt="預測A組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv1.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Brazil_c.png" title="巴西" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Germany_c.png" title="德國" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Japan_c.png" title="日本" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_France_c.png" title="法國" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>10,000,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：123</p></div>
+    <div class="betbox__BetBtn" data-item-idx="1"></div>
+  </div>
+</div>
+<div class="swiper-slide">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_B.png" alt="預測B組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv1.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Spain_c.png" title="西班牙" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Argentina_c.png" title="阿根廷" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Mexico_c.png" title="墨西哥" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_South_Korea_c.png" title="韓國" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>5,000,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    <div class="betbox__BetBtn" data-item-idx="2"></div>
+  </div>
+</div>
+<div class="swiper-slide">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_C.png" alt="預測C組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv2.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Portugal_c.png" title="葡萄牙" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_the_Netherlands_c.png" title="荷蘭" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Croatia_c.png" title="克羅埃西亞" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Belgium_c.png" title="比利時" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>3,500,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：50</p></div>
+    <div class="betbox__BetBtn" data-item-idx="3"></div>
+  </div>
+</div>
+<div class="swiper-slide">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_D.png" alt="預測D組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv2.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Uruguay_c.png" title="烏拉圭" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Colombia_c.png" title="哥倫比亞" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Ecuador_c.png" title="厄瓜多" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Paraguay_c.png" title="巴拉圭" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>2,800,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    <div class="betbox__BetBtn" data-item-idx="4"></div>
+  </div>
+</div>
+<div class="swiper-slide off winbet">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_E.png" alt="預測E組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv2.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee has-winner" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Sweden_c.png" title="瑞典" style="max-height:100%;object-fit:contain;"></li>
+<li class="win" style="overflow:hidden;position:relative;opacity:1;top:0px;left:0px;"><img src="/ingame-assets/images/Flag_of_Switzerland_c.png" title="瑞士" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Norway_c.png" title="挪威" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Austria_c.png" title="奧地利" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>1,200,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：30</p></div>
+    
+  </div>
+</div>
+<div class="swiper-slide off">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_F.png" alt="預測F組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv3.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Saudi_Arabia_c.png" title="沙烏地阿拉伯" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Tunisia_c.png" title="突尼西亞" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Morocco_c.png" title="摩洛哥" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Senegal_c.png" title="塞內加爾" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>900,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    
+  </div>
+</div>
+<div class="swiper-slide">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/text_group_G.png" alt="預測G組第一"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv3.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="marquee" style="overflow:hidden;">
+        <li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Ghana_c.png" title="迦納" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_South_Africa_c.png" title="南非" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_Canada_c.png" title="加拿大" style="max-height:100%;object-fit:contain;"></li>
+<li style="overflow:hidden;"><img src="/ingame-assets/images/Flag_of_the_United_States_c.png" title="美國" style="max-height:100%;object-fit:contain;"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>750,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：15</p></div>
+    <div class="betbox__BetBtn" data-item-idx="7"></div>
+  </div>
+</div>
+<div class="swiper-slide">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/betpage/bet2_title1.png" alt="32強 場1"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv4.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="nationVs">
+        <li><img src="/ingame-assets/images/Flag_of_England_c.png" title="英格蘭"></li>
+        <li><img src="/ingame-assets/images/Flag_of_Algeria_c.png" title="阿爾及利亞"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>8,000,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：200</p></div>
+    <div class="betbox__BetBtn" data-item-idx="8"></div>
+  </div>
+</div>
+<div class="swiper-slide swiper-slide-active">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/betpage/bet2_title1.png" alt="16強 場1"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv5.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="nationVs">
+        <li><img src="/ingame-assets/images/Flag_of_Brazil_c.png" title="巴西"></li>
+        <li><img src="/ingame-assets/images/Flag_of_France_c.png" title="法國"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>6,500,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    <div class="betbox__BetBtn" data-item-idx="9"></div>
+  </div>
+</div>
+<div class="swiper-slide off winbet">
+  <div class="betbox">
+    <div class="betbox__title"><img src="/ingame-assets/images/betpage/bet2_title1.png" alt="準決賽"></div>
+    <div class="betbox__awards"><img src="/ingame-assets/images/top_award_lv6.png" alt="獎金"></div>
+    <div class="betbox__nation">
+      <ul class="nationVs">
+        <li class="win"><img src="/ingame-assets/images/Flag_of_Australia_c.png" title="澳洲"></li>
+        <li><img src="/ingame-assets/images/Flag_of_Japan_c.png" title="日本"></li>
+      </ul>
+    </div>
+    <div class="betbox__allBetNum"><p>4,200,000</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：150</p></div>
+    
+  </div>
+</div>
+</div>
+					</div>
+					<div class="swiper-button-next" id="mainBetNext"></div>
+					<div class="swiper-button-prev" id="mainBetPrev"></div>
+				</div>
+				<div class="btn__question"></div>
+				<div class="btn__record"></div>
+				<!-- 按鈕-活動說明 -->
+				<!-- 彈跳視窗 -->
+				<div class="popup">
+					<div class="popup__main popup-base question">
+						<a class="btn-close" href="#"></a>
+						<h2>大獎經典賽</h2>
+						<div class="main">
+							<h3>活動時間</h3>
+							<div class="part">
+								<p>2026/6/11(四)中午12:00～2026/7/29(三)11:59止</p>
+							</div>
+							<h3>活動內容</h3>
+							<div class="part">
+								<ol class="list list-asterisk">
+									<li>預測這次<span class="f-danger">足球國際賽事</span>各階段賽事結果，猜對就可獲得獎金！</li>
+									<li>下注會分為分組賽、32強、16強、半準決賽、準決賽、季軍賽、冠軍賽。</li>
+									<li>分組賽要猜哪個國家會是該組的第一名晉級。</li>
+									<li>32強、16強、半準決賽、準決賽、季軍賽、冠軍賽則是猜哪一個球隊獲勝。</li>
+									<li>可下注的球隊會隨著戰積確定後持續新增至可下注清單內。</li>
+									<li>每個階段的獎金都會不同，越靠近決賽預測獎金越高！</li>
+									<li>各階段下注開放時間不同，請參照後續表格，留意開放時間。</li>
+									<li>開放下注期間每消耗1張下注券，即可投注一次。</li>
+									<li>每個階段獲得的下注券無法帶到下一個階段，該階段結束下注時會清除該階段剩餘未下注的下注券，請把握時間下注。</li>
+									<li>下注券可透過遊戲內的任務、活動等機制取得。</li>
+									<li>各階段結束後，會平分獎金池內的所有獎金給預測成功的下注券玩家。</li>
+									<li>獎金請在2026/7/29(三)11:59前領取，開啟此活動介面即可領獎。</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<div class="popup__main popup-base record">
+						<a class="btn-close" href="#"></a>
+						<h2>我的押注</h2>
+						<div class="main">
+							<div class="part">
+								<table class="table table-full" id="recordTable">
+									<thead>
+										<tr>
+										<th>場次</th>
+										<th>隊伍</th>
+										<th>我的押注</th>
+										<th>結果</th>
+									</tr>
+									</thead>
+									<tbody id="recordTableBody">
+<tr><td>分組賽 A組</td><td><img src="/ingame-assets/images/betpage/Flag_of_Brazil.png" title="巴西" style="height:24px"></td><td>100</td><td><span style="color:#4cff4c">✓ 猜中</span></td><td><span style="color:#FFEA00;font-weight:600">25,000</span></td></tr>
+<tr><td>分組賽 B組</td><td><img src="/ingame-assets/images/betpage/Flag_of_Spain.png" title="西班牙" style="height:24px"></td><td>50</td><td><span style="color:#ff6b6b">✗ 未中</span></td><td><span style="color:#666">0</span></td></tr>
+<tr><td>分組賽 L組</td><td><img src="/ingame-assets/images/betpage/Flag_of_England.png" title="英格蘭" style="height:24px"></td><td>200</td><td><span style="color:#4cff4c">✓ 猜中</span></td><td><span style="color:#FFEA00;font-weight:600">88,888</span></td></tr>
+<tr><td>32強 場1</td><td><img src="/ingame-assets/images/betpage/Flag_of_Brazil.png" title="巴西" style="height:24px"></td><td>75</td><td><span style="color:#aaa">進行中</span></td><td>-</td></tr>
+<tr><td>16強 場2</td><td><img src="/ingame-assets/images/betpage/Flag_of_France.png" title="法國" style="height:24px"></td><td>30</td><td><span style="color:#aaa">進行中</span></td><td>-</td></tr>
+</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="popup__main popup-bet betpage">
+						<a class="btn-close" href="#"></a>
+						<div class="info__userHave">
+							<img src="/ingame-assets/images/ticket-1.png" alt="競猜券">
+							<p class="num" id="betPageItemCount">123,456</p>
+						</div>
+						<div class="betpage__title">
+
+							<div class="title">
+								<img src="/ingame-assets/images/betpage/bet2_title1.png" id="editorBetPageTitleImg" style="display:none; width:100%; margin:0 auto;">
+								<div class="words" id="editorBetPageTitleWords" style="width:60.8%; height:96.6%; display:flex; justify-content:center; align-items:center; position:relative;">
+									<div class="nums">
+										<ul>
+											<li class="num-6"></li>
+											<li class="num-slash"></li>
+											<li class="num-5"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="allawards">
+								<p>本場目前總獎金：<span class="f-fun">10,000,000</span></p>
+							</div>
+</div>
+						<!-- 分組賽押注：多隊 swiper，含導覽箭頭 -->
+						<div class="betpage__betbox betPredict" id="betPredictBox" >
+							<div class="swiper betpage__betbox-bet">
+								<div class="swiper-wrapper" id="betPredictWrapper">
+<div class="swiper-slide" data-medal="10001">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_Iran.png"></div>
+    <div class="betbox__teamName"><p>伊朗</p></div>
+    <div class="betbox__allBetNum"><p>5,200</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：123</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="10001">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+<div class="swiper-slide swiper-slide-active" data-medal="10002">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_England.png"></div>
+    <div class="betbox__teamName"><p>英格蘭</p></div>
+    <div class="betbox__allBetNum"><p>8,300</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：456</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="10002">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+<div class="swiper-slide" data-medal="10003">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_Brazil.png"></div>
+    <div class="betbox__teamName"><p>巴西</p></div>
+    <div class="betbox__allBetNum"><p>3,100</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="10003">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+<div class="swiper-slide" data-medal="10004">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_France.png"></div>
+    <div class="betbox__teamName"><p>法國</p></div>
+    <div class="betbox__allBetNum"><p>4,700</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：89</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="10004">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+						<!-- 淘汰賽押注：兩隊並列，點擊切換，無箭頭 -->
+						<div class="betpage__betbox betGame" id="betGameBox" >
+							<div class="swiper betpage__betbox-bet">
+								<div class="swiper-wrapper" id="betGameWrapper">
+<div class="swiper-slide swiper-slide-active" data-medal="20001">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_England.png"></div>
+    <div class="betbox__teamName"><p>英格蘭</p></div>
+    <div class="betbox__allBetNum"><p>12,500</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：200</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="20001">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+<div class="swiper-slide" data-medal="20002">
+  <div class="betbox">
+    <div class="betbox__nation"><img src="/ingame-assets/images/betpage/Flag_of_Iran.png"></div>
+    <div class="betbox__teamName"><p>伊朗</p></div>
+    <div class="betbox__allBetNum"><p>9,800</p></div>
+    <div class="betbox__myBetNum"><p>我已投注：0</p></div>
+    <div class="betbox__betting">
+      <div class="btn btn-reduce off"></div>
+      <input type="text" value="0" class="betNum" data-medal="20002">
+      <div class="btn btn-add"></div>
+    </div>
+  </div>
+</div>
+</div>
+							</div>
+						</div>
+						<div class="betpage__note">
+							請輸入要投注的數量
+						</div>
+						<div class="betpage__betBtns">
+							<div class="btn_bet btn_betClear"></div>
+							<div class="btn_bet btn_betSure"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ingame__popup--bg"></div>
+		</div>
+		<!-- Loading -->
+		<div class="loading_wrp" style="display:none;">
+			<div class="loading"><div class="spinner"></div></div>
+			<p id="loadingWord">處理中...請稍候</p>
+		</div>
+		<!-- JS -->
+		
+	</div>

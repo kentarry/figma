@@ -1,0 +1,1429 @@
+﻿@charset "UTF-8";
+
+/* Reset By Normalize */
+$eventName: 20260527MU; //資料夾名稱
+$versionNum: 20260527; //版號
+@import url(/css/normalize.css);
+@import "_setup.scss";
+@import url("/css/animate.css/animate.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@200..900&family=Noto+Sans+TC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+$src:unquote("/Action/11_Star31/" + $eventName + "/ingame/images/");
+
+$baseWidth: 1400;
+$baseHeight: 788;
+
+
+/* ================= 頁面框架設定 ================= */
+:root {
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color:transparent;
+    outline:none;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+    font-family: 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+}
+img{
+    max-width: 100%;
+    -webkit-touch-callout: none;
+}
+.show{
+    visibility: visible !important;
+}
+//站台時間區塊控制
+.dtNow {
+    display: none;
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	z-index: 99;
+	border-radius: 3px;
+	padding: 3px;
+}
+body{
+    background: #305EEF;
+}
+.ingame__wrapper{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-image: url(#{$src}ingamebg.jpg?#{$versionNum});
+	background-repeat: no-repeat;
+	background-size:cover;
+	background-position: center center;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-position:center;
+	@media (max-aspect-ratio: 16/9) {
+		background-size: 104% auto;
+	}
+	@media (min-aspect-ratio: 9/16) and (orientation: portrait){
+		background-size: 104% auto;
+	}
+	@media (min-aspect-ratio: 16/9) {
+		background-size: auto 100%;
+	}
+	@media (max-aspect-ratio: 9/16) and (orientation: portrait){
+		background-size: auto 100%;
+	}
+}
+.ingame__container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	@media (max-aspect-ratio: 16/9) {
+		width: ($baseWidth / $baseWidth) * 100 + vw;
+		height: ($baseHeight / $baseWidth) * 100 + vw;
+	}
+	@media (min-aspect-ratio: 9/16) and (orientation: portrait){
+		width: ($baseWidth / $baseWidth) * 100 + vh;
+		height: ($baseHeight / $baseWidth) * 100 + vh;
+	}
+	@media (min-aspect-ratio: 16/9) {
+		width:($baseWidth / $baseHeight) * 96 + vh;
+		width: calc(var(--vh, 1vh) * ($baseWidth / $baseHeight) * 96);
+		padding-bottom: initial;
+		height: 96vh;
+		height: calc(var(--vh, 1vh) * 96);
+		background-size: auto 100%;
+		background-position: top center;
+		//top: -2vh;
+	}
+	@media (max-aspect-ratio: 9/16) and (orientation: portrait){
+		width:($baseWidth / $baseHeight) * 96 + vw;
+		height: 96vw;
+		//top: -2vh;
+	}
+}
+.ingame__popup--bg{
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1;
+	visibility: hidden;
+}
+$gameswitch-W: 333 * 0.9;
+$gameswitch-H: 91 * 0.9;
+$gameswitch-active-W: 175* 0.9;
+$gameswitch-active-H: 50* 0.9;
+$gameswitch-arrow-W: 57 * 0.9;
+$gameswitch-arrow-H: 33 * 0.9;
+.gameswitch {
+    width: percentage($gameswitch-W / $baseWidth);
+    height: percentage($gameswitch-H / $baseHeight);
+    position: absolute;
+    top: percentage(2 / $baseHeight);
+    left: percentage(16 / $baseWidth);
+    background-image: url(#{$src}switch_group_base.png?#{$versionNum});
+    background-size: 100% 100%;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: percentage(10 / $gameswitch-W);
+        width: percentage($gameswitch-arrow-W / $gameswitch-W);
+        height: percentage($gameswitch-arrow-H / $gameswitch-H);
+        background-image: url(#{$src}arrow_down.png?#{$versionNum});
+        background-size: 100% 100%;
+        transform: translateY(-50%);
+    }
+    &.show {
+        &::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+    }
+    z-index: 2;
+    &--active {
+        width: percentage($gameswitch-active-W / $gameswitch-W);
+        height: percentage($gameswitch-active-H / $gameswitch-H);
+        position: absolute;
+        top: 50%;
+        left: percentage(68 / $gameswitch-W);
+        transform: translateY(-50%);
+        background-size: 100% auto;
+    }
+    &__list {
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #26296D;
+        border-radius: 20px;
+        display: none;
+        padding: percentage(10 / $gameswitch-W);
+        &.show {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .switch__item {
+        width: 100%;
+        padding: percentage(10 / $gameswitch-W);
+        display: flex;
+        justify-content: center;
+        img {
+            width: percentage($gameswitch-active-W / $gameswitch-W);
+            display: block;
+        }
+        &.active {
+            background-color: #1B88E1;
+            border-radius: 10px;
+        }
+    }
+}
+$infobg-W:407;
+$infobg-H:104;
+.gameinfo{
+    width: 100%;
+    height: percentage($infobg-H / $baseHeight);
+    position: absolute;
+    top: percentage(90 / $baseHeight);
+    left: percentage(0 / $baseWidth);
+    .info__userHave{
+        width: percentage($infobg-W / $baseWidth);
+        height: 100%;
+        position: absolute;
+        top:0;
+        left: percentage(-14 / $baseWidth);
+        background-image: url(#{$src}info_have.png?#{$versionNum});
+        background-size: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        p.text {
+            position: relative;
+            font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+            color: #fff;
+            @include fontSize(10, 30);
+            font-weight: 500;
+            margin-left: percentage(20 / $infobg-W);
+            margin-right: percentage(30 / $infobg-W);
+        }
+        img{
+            display: block;
+            width: percentage(79 / $infobg-W);
+            height: percentage(59 / $infobg-H);
+        }
+        p.num {
+            width: percentage(160 / $infobg-W);
+            position: relative;
+            font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+            color: #fff;
+            text-align: center;
+            font-weight: 500;
+            @include fontSize(12, 36);
+            @include stroke(2, #096DC8);
+        }
+    }
+    .info__countdownTime{
+        width: percentage($infobg-W / $baseWidth);
+        height: 100%;
+        position: absolute;
+        top:0;
+        right: percentage(-14 / $baseWidth);
+        background-image: url(#{$src}info_time.png?#{$versionNum});
+        background-size: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        p.value {
+            position: relative;
+            font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+            color: #fff;
+            @include fontSize(10, 29);
+            @include stroke(2, #096DC8);
+            font-weight: 500;
+            margin-left: percentage(180 / $infobg-W);
+            margin-top: percentage(-1 / $infobg-H);
+        }
+    }
+}
+$allawards-W:551;
+$allawards-H:125;
+.gameallawards{
+    width: percentage($allawards-W / $baseWidth);
+    height: percentage($allawards-H / $baseHeight);
+    position: absolute;
+    top: percentage(72 / $baseHeight);
+    left: percentage(422 / $baseWidth);
+    img {
+        display: block;
+        width: 100%;
+    }
+}
+$betbox-W:438; //投注框寬度
+$betbox-H:577; //投注框高度
+$swiper-button-W: 68; // swiper左右按鈕寬度
+$swiper-button-H: 98; // swiper左右按鈕高度
+$gamemain-W: ($betbox-W + ($betbox-W * 0.85 * 2)) + $swiper-button-W * 2; // 主遊戲區塊寬度 = 3個投注框寬度 + 2個swiper按鈕寬度
+$gamemain-bet-W: $betbox-W + ($betbox-W * 0.85 * 2); //投注區塊寬度 = 3個投注框寬度
+$nation-W: 350; // 國旗區塊寬度
+$nation-H: 107; // 國旗區塊高度
+$nation-marquee-W: 172; // 預測第一國旗區塊 - 跑馬燈寬度
+$nation-marquee-H: 107; // 預測第一國旗區塊 - 跑馬燈高度
+$nation-vs-W: 34; // 確定對戰場次國旗區塊 - VS圖寬度
+$nation-vs-H: 33; // 確定對戰場次國旗區塊 - VS圖高度
+$nation-vs-flag-W: 101; // 確定對戰場次國旗區塊 - 國旗寬度
+$nation-vs-flag-H: 104; // 確定對戰場次國旗區塊 - 國旗高度
+$win-label-W: 166; // 勝利國旗上方 - WIN圖寬度
+$win-label-H: 61; // 勝利國旗上方 - WIN圖高度
+$icon_winlable-W: 438 * 0.55; // 預測成功標籤區塊 - WIN圖寬度
+$icon_winlable-H: 438 * 0.55; // 預測成功標籤區塊 - WIN圖高度
+.gamemain{
+    width: percentage($gamemain-W / $baseWidth);
+    height: percentage($betbox-H / $baseHeight);
+    position: absolute;
+    top: percentage(220 / $baseHeight);
+    left: percentage(($baseWidth -$gamemain-W) / 2 / $baseWidth);
+    &-bet{
+        width: percentage($gamemain-bet-W / $gamemain-W);
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .swiper-slide{
+            width: percentage($betbox-W / $gamemain-W);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            transform:translateZ(0) scale(0.85)!important;
+            &.swiper-slide-active{
+                transform: translateZ(0) scale(1)!important;
+                &::before{
+                    background-image: url(#{$src}betbox_bg_active.png?#{$versionNum});
+                }
+                .betbox{
+                    &__BetBtn{
+                        display: block;
+                    }
+                }
+            }
+            &::before{
+                content: '';
+                position: absolute;
+                top:0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url(#{$src}betbox_bg.png?#{$versionNum});
+                background-size: 100%;
+                background-repeat: no-repeat;
+            }
+
+            &.off{
+                &::before{
+                    filter: grayscale(1) brightness(0.9);
+                    z-index: 0;
+                }
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top:0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    mask-image: url(#{$src}betbox_bg.png?#{$versionNum});
+                    mask-size: 100%;
+                    mask-repeat: no-repeat;
+                    z-index: 0;
+                }
+                .betbox{
+                    &__BetBtn{
+                        background-image: url(#{$src}btn_result.png?#{$versionNum});
+                        &:hover{
+                            background-image: url(#{$src}btn_result-hover.png?#{$versionNum});
+                        }
+                    }
+                    &__nation{
+                        ul.nationVs{
+                            li{
+                                filter: grayscale(0.8);
+                                &.win{
+                                    filter: grayscale(0);
+                                    transform: scale(1.1);
+                                    z-index: 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.winbet{
+                .betbox{
+                    &::after{
+                        content: '';
+                        display: block;
+                        width: percentage($icon_winlable-W / $betbox-W);
+                        height:  percentage($icon_winlable-H / $betbox-H);
+                        position: absolute;
+                        top: percentage(220 / $betbox-H);
+                        left: percentage(($betbox-W - $icon_winlable-W) / 2 / $betbox-W);margin-left: percentage(6 / $betbox-W);
+                        background-image: url(#{$src}icon_winlable.png?#{$versionNum});
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                        z-index: 1;
+                    }
+                }
+            }
+            .betbox{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                &__title{
+                    width: percentage(185 / $betbox-W);
+                    height: percentage(34 / $betbox-H);
+                    position: absolute;
+                    top: percentage(76 / $betbox-H);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    img{
+                        display: block;
+                        width: 100%;
+                    }
+                }
+                &__awards{
+                    width: percentage(306 * 0.9 / $betbox-W);
+                    height: percentage(45 * 0.9 / $betbox-H);
+                    position: absolute;
+                    top: percentage(118 / $betbox-H);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    img {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+                &__nation{
+                    width: percentage($nation-W / $betbox-W);
+                    height: percentage($nation-H / $betbox-H);
+                    position: absolute;
+                    top: percentage(164 / $betbox-H);
+                    left: percentage(($betbox-W - $nation-W) / 2 / $betbox-W);
+                    display: flex;
+                    justify-content: space-around;
+                    ul.nationVs{
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        list-style: none;
+                        &::before{
+                            content: '';
+                            display: block;
+                            width: percentage(34 / $nation-W);
+                            height: percentage(33 / $nation-H);
+                            background-image: url(#{$src}VS.png?#{$versionNum});
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                            order: 2;
+                        }
+                        li{
+                            width: percentage($nation-vs-flag-W / $nation-W);
+                            height: percentage($nation-vs-flag-H / $nation-H);
+                            position: relative;
+                            img{
+                                display: block;
+                                margin-top: percentage(6 / $nation-vs-flag-W);
+                                margin-left: percentage(6 / $nation-vs-flag-W);
+                            }
+                            &.win {
+                                &::before{
+                                    content: '';
+                                    display: block;
+                                    width: percentage($win-label-W / $nation-vs-flag-W);
+                                    height:  percentage($win-label-H / $nation-vs-flag-H);
+                                    position: absolute;
+                                    top: percentage(-12 / $nation-vs-flag-H);
+                                    left: percentage(($nation-vs-flag-W - $win-label-W) / 2 / $nation-vs-flag-W);margin-left: percentage(6 / $nation-vs-flag-W);
+                                    background-image: url(#{$src}win.png?#{$versionNum});
+                                    background-size: 100%;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                            &:nth-child(1){
+                                order: 1;
+                            }
+                            &:nth-child(2){
+                                order: 3;
+                            }
+                        }
+                    }
+                    ul.marquee{
+                        width: percentage($nation-marquee-W / $nation-W);
+                        height: percentage($nation-marquee-H / $nation-H);
+                        background-color: transparent;
+                        border: 0;
+                        display: block;
+                        li{
+                            width: 100%;
+                            height: 100%;
+                            padding: 0;
+                            position: absolute;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img{
+                                width: 100%;
+                                margin-top: percentage(6 / $nation-marquee-W);
+                                margin-left: percentage(4 / $nation-marquee-W);
+                            }
+                            &::before{
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &.win {
+                        filter: grayscale(0);
+                        transform: scale(1.1);
+                        z-index: 1;
+                        > img {
+                            width: percentage($nation-marquee-W * 0.8  / $nation-W);
+                            height: percentage($nation-marquee-H * 0.8 / $nation-H);
+                            background-color: transparent;
+                            border: 0;
+                            display: block;
+                            position: absolute;
+                            top: percentage(17 / $nation-H);
+                            margin-left: percentage(6 / $nation-marquee-W);
+                        }
+                        &::after{
+                            content: '';
+                            display: block;
+                            width: percentage($win-label-W / $nation-W);
+                            height:  percentage($win-label-H / $nation-H);
+                            position: absolute;
+                            top: percentage(-22 / $nation-H);
+                            left: percentage(($nation-W - $win-label-W) / 2 / $nation-W);
+                            background-image: url(#{$src}win.png?#{$versionNum});
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                }
+                &__allBetNum{
+                    width: percentage(420 / $betbox-W);
+                    position: absolute;
+                    top: percentage(310 / $betbox-H);
+                    left: percentage(9 / $betbox-W);
+                    p{
+                        color: #FFEA00;
+                        text-align: center;
+                        font-weight: bold;
+                        line-height: 1em;
+                        @include fontSize(16, 42);
+                        font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                    }
+                }
+                &__myBetNum{
+                    width: percentage(420 / $betbox-W);
+                    position: absolute;
+                    top: percentage(360 / $betbox-H);
+                    left: percentage(9 / $betbox-W);
+                    p{
+                        color: #fff;
+                        text-align: center;
+                        font-weight: 400;
+                        line-height: 1em;
+                        @include fontSize(10, 22);
+                        font-family: 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                    }
+                }
+                &__BetBtn{
+                    display: none;
+                    z-index: 1;
+                    width: percentage(199 / $betbox-W);
+                    height: percentage(82 / $betbox-H);
+                    position: absolute;
+                    top: percentage(414 / $betbox-H);
+                    left: percentage(119 / $betbox-W);
+                    background-image: url(#{$src}btn_bet.png?#{$versionNum});
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    cursor: pointer;
+                    &:hover{
+                        filter: brightness(1.1);
+                    }
+                }
+            }
+        }
+    }
+    .swiper-button{
+        &-next,
+        &-prev{
+            width: percentage($swiper-button-W / $gamemain-W);
+            height: percentage($swiper-button-H / $betbox-H);
+            top: percentage(210 / $betbox-H);
+            color: initial;
+            opacity: 1;
+            z-index: 1;
+            &::after{
+                content: '';
+                display: block;
+                width: 100%;
+                height: 100%;
+                background-size: 100%!important;
+                animation: pulse 1.5s infinite, swiperButton 1.5s infinite;
+            }
+        }
+        &-next{
+            &::after{
+                background-image: url(#{$src}btn_arrow_next.png?#{$versionNum});
+                opacity: 1;
+            }
+        }
+        &-prev{
+            &::after{
+                background-image: url(#{$src}btn_arrow_prev.png?#{$versionNum});
+                opacity: 1;
+            }
+        }
+    }
+}
+.gamelight{
+    width: percentage(631 / $baseWidth);
+    height: percentage(263 / $baseHeight);
+    position: absolute;
+    top: percentage(310 / $baseHeight);
+    left: percentage(645 / $baseWidth);
+    background-image: url(#{$src}top_light.png?#{$versionNum});
+    background-size: 100%;
+    animation: gamelight 3s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+@keyframes swiperButton{
+    0%,100%{
+        filter: brightness(1);
+    }
+    50%{
+        filter: brightness(1.2);
+    }
+}
+@keyframes nationWin{
+    0%,100%{
+        filter: brightness(1) saturate(1);
+    }
+    50%{
+        filter: brightness(1.5) saturate(1.05);
+    }
+}
+@keyframes gamelight{
+    0%,100%{
+        filter: brightness(1) hue-rotate(-20deg) saturate(0.9) blur(4px);
+    }
+    50%{
+        filter: brightness(1.3) hue-rotate(120deg) saturate(1.5) blur(2px);
+    }
+}
+.ingame__popup--bg{
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1;
+	visibility: hidden;
+}
+.btn__question{
+    width: percentage(82 / $baseWidth);
+    height: percentage(82 / $baseHeight);
+    position: absolute;
+    left: percentage(24 / $baseWidth);
+    bottom: percentage(24 / $baseHeight);
+    background-image: url(#{$src}btn_question.png?#{$versionNum});
+    background-size: 100%;
+    cursor: pointer;
+}
+.btn__record{
+    width: percentage(82 / $baseWidth);
+    height: percentage(82 / $baseHeight);
+    position: absolute;
+    left: percentage(122 / $baseWidth);
+    bottom: percentage(24 / $baseHeight);
+    background: url(#{$src}btn_record.png?#{$versionNum});
+    background-size: 100%;
+    cursor: pointer;
+}
+//彈跳視窗
+$popup-W:1302;
+$popup-H:733;
+//彈跳視窗
+.popup{
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    visibility: hidden;
+    &-base{
+        width: percentage($popup-W / $baseWidth);
+        height: percentage($popup-H / $baseHeight);
+        position: absolute;
+        top: percentage(($baseHeight - $popup-H) / 2 / $baseHeight);
+        left: percentage(($baseWidth - $popup-W) / 2 / $baseWidth);
+        background-image: linear-gradient(to bottom, #1B88E1 0%, #2251A6 10%, #2251A6 100%);
+        border-radius: 16px;
+        outline: 2px solid #FFE24A;
+        border: 2px solid #1CFFFF;
+        padding: percentage(16 / $baseHeight)  2em percentage(16 / $baseHeight) 2em;
+        color: #FFF;
+        line-height: 1.5em;
+        overflow: hidden;
+        z-index: 1;
+        visibility: hidden;
+        @include fontSize(14, 18);
+        font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+        h2{
+            color: white;
+            letter-spacing: 5px;
+            padding-bottom: 0.5em;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.75em;
+            font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+            .f-sm{
+                font-size: 0.75em;
+                letter-spacing: 0px;
+            }
+        }
+        .main{
+            width: 100%;
+            height: calc(100% - (1.5rem + 2px + 8px));
+            background-color: #26296D;
+            box-shadow: inset 0 0 0.5em rgba(0,0,0,0.5);
+            margin: 0 auto;
+            overflow-y: scroll;
+            padding: 8px 2em;
+            &::-webkit-scrollbar {
+                width: 10px;
+                margin: 2px;
+                background: rgba(255,255,255,0.15);
+                border-radius: 5px;
+            }
+            &::-webkit-scrollbar-thumb{
+                width: 8px;
+                padding: 2px;
+                background: rgba(255,187,42,.5);
+                border-radius: 5px;
+            }
+            h3 {
+                font-size: 1.35em;
+                line-height: 2em;
+                color: #FFEA00;
+                margin-left: -1em;
+            }
+        }
+        a.btn-close {
+            position: absolute;
+            display: block;
+            top: percentage(24 / $baseHeight);
+            right:percentage(16 / $baseWidth);
+            width:50px;
+            height: 50px;
+            background-image: url(#{$src}btn_close.png);
+            background-size: 100% auto;
+            background-position: center top;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            z-index: 9;
+            @media only screen and (max-width: 798px){
+                width:35px;
+                height: 35px;
+            }
+            @media only screen and (max-height: 798px){
+                width:35px;
+                height: 35px;
+            }
+        }
+    }
+    &__main{
+        visibility: hidden;
+    }
+    .btns{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: percentage(36 / 1608) auto;
+        position: relative;
+        div{
+            max-width: 35%;
+            cursor: pointer;
+            margin: 0 4px;
+        }
+        .off{
+            cursor: default;
+            img{
+                filter: grayscale(1);
+            }
+        }
+    }
+    .part{
+        margin-bottom: 56px;
+        > p,
+        > ol,
+        > ul,
+        > h3{
+            margin-bottom: 16px;
+        }
+    }
+    //說明區
+    .question {
+        .f-danger{
+            color: rgb(255, 123, 0);
+        }
+        ul,ol {
+            font-size: 1em;
+            width: 100%;
+            li{
+                padding-bottom: 8px;
+            }
+        }
+    }
+    .record{
+        position: absolute;
+        .table{
+            tr{
+                td{
+                    padding: 6px 0 0 0;
+                    img{
+                        width: 80px;
+                        max-width: 80%;
+                    }
+                }
+            }
+        }
+    }
+    $popup-bet-W:1302;
+    $popup-bet-H:733;
+    &-bet{
+        width: percentage($popup-bet-W / $baseWidth);
+        height: percentage($popup-bet-H / $baseHeight);
+        position: absolute;
+        top: percentage(($baseHeight - $popup-bet-H) / 2 / $baseHeight);
+        left: percentage(($baseWidth - $popup-bet-W) / 2 / $baseWidth);
+        background-image: url(#{$src}betpage/bet2_bg.png?#{$versionNum});
+        background-size: 100%;
+        .info__userHave{
+            width: percentage($infobg-W / $popup-bet-W);
+            height: percentage($infobg-H / $popup-bet-H);
+            position: absolute;
+            top: percentage(28 / $popup-bet-H);
+            left: percentage(26 / $popup-bet-W);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            img{
+                display: block;
+                width: percentage(79 / $infobg-W);
+                height: percentage(59 / $infobg-H);
+                margin-left: percentage(130 / $infobg-W);
+            }
+            p.num {
+                width: percentage(160 / $infobg-W);
+                position: relative;
+                font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                color: #fff;
+                text-align: center;
+                font-weight: 500;
+                @include fontSize(12, 36);
+                @include stroke(2, #096DC8);
+            }
+        }
+        $betpage-title-W:373;
+        $betpage-title-H:59;
+        .betpage{
+            &__title{
+                width: percentage($betpage-title-W / $popup-bet-W);
+                height: percentage($betpage-title-H / $popup-bet-H);
+                position: absolute;
+                top: percentage(24 / $popup-bet-H);
+                left: percentage(480 / $popup-bet-W);
+                .title {
+                    width: 100%;
+                    height: 100%;
+                    img{
+                        display: block;
+                        width: 100%;
+                        margin: 0 auto;
+                    }
+                    $num-W:49;
+                    $num-H:57;
+                    $num-slash-W:31;
+                    $num-slash-H:60;
+                    $num-words-W:($num-W * 4) + $num-slash-W;
+                    $num-words-H:57;
+                    .words{
+                        width: percentage($num-words-W / $betpage-title-W);
+                        height: percentage($num-words-H / $betpage-title-H);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                        .nums{
+                            width: 100%;
+                            height: 100%;
+                            position: relative;
+                            ul{
+                                width:100%;
+                                height: 100%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-wrap: wrap;
+                                list-style: none;
+                                li{
+                                    width: percentage($num-W / $num-words-W);
+                                    height: percentage($num-H / $num-words-H);
+                                    display: block;
+                                    background-size: 100%;
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                            @for $i from 0 through 9{
+                                .num-#{$i}{
+                                    background-image: url(#{$src}num/pop_day_#{$i}.png?v=#{$versionNum});
+                                }
+                            }
+                            .num-slash{
+                                width: percentage($num-slash-W / $num-words-W);
+                                height: percentage($num-slash-H / $num-words-H);
+                                background-image: url(#{$src}num/pop_day_slash.png?v=#{$versionNum});
+                            }
+                        }
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            left: 100%;
+                            width: percentage(113 / $num-words-W);
+                            height: percentage(59 / $num-words-H);
+                            background-image: url(#{$src}betpage/pop_even.png?v=#{$versionNum});
+                            background-size: 100%;
+                            background-position: center;
+                        }
+                    }
+                }
+                .allawards{
+                    width: 100%;
+                    height: percentage(50 / $betpage-title-H);
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        font-weight: 400;
+                        @include fontSize(12, 28);
+                        white-space: nowrap;
+                        font-family: 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                    }
+                }
+            }
+        }
+        a.btn-close {
+            right:percentage(36 / $baseWidth)!important;
+        }
+    }
+    $betbox-W:309 * 1.125;
+    $betbox-H:406 * 1.125;
+    $swiper-button-W: 69 * 0.8;
+    $swiper-button-H: 111 * 0.8;
+    $betpage__betbox-W: $betbox-W + ($betbox-W * 2 * 0.85) + ($swiper-button-W * 2);
+    $betpage__betbox-bet-W: $betbox-W + ($betbox-W * 2 * 0.85);
+    $nation-W: 172;
+    $nation-H: 107;
+    $betbox-betGame-W:309;
+    $betbox-betGame-H:406;
+    $betpage__betGame-W: $betbox-betGame-W * 2;
+    $nation-betGame-W: 172 * 0.85;
+    $nation-betGame-H: 107 * 0.85;
+    .betpage{
+        &__betbox{
+            position: absolute;
+            &.betPredict{
+                width: percentage($betpage__betbox-W / $popup-bet-W);
+                height: percentage($betbox-H / $popup-bet-H);
+                top: percentage(150 / $popup-bet-H);
+                left: percentage(($popup-bet-W - $betpage__betbox-W) / 2 / $popup-bet-W);
+                .betpage__betbox-bet{
+                    width: percentage($betpage__betbox-bet-W / $betpage__betbox-W);
+                    height: 100%;
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    .swiper-slide{
+                        width: percentage($betbox-W / $betpage__betbox-bet-W);
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        background-image: url(#{$src}betpage/betbox2_bg.png?#{$versionNum});
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                        transform:translateZ(0) scale(0.85)!important;
+                        object-position: center top;
+                        &.off{
+                            filter: grayscale(0.85) brightness(0.8);
+                            &.swiper-slide-active {
+                                .betbox {
+                                    &__betting{
+                                        .btn {
+                                            display: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &.swiper-slide-active{
+                            background-image: url(#{$src}betpage/betbox2_bg_active.png?#{$versionNum});
+                            transform: translateZ(0) scale(1)!important;
+                            .betbox {
+                                &__betting{
+                                    .btn {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                        .betbox{
+                            width: 100%;
+                            height: 100%;
+                            position: relative;
+                            &__nation{
+                                width: percentage($nation-W / $betbox-W);
+                                height: percentage($nation-H / $betbox-H);
+                                position: absolute;
+                                top: percentage(70 / $betbox-H);
+                                left: percentage(($betbox-W - $nation-W) / 2 / $betbox-W);
+                                display: flex;
+                                justify-content: space-around;
+                                img{
+                                    display: block;
+                                    width:100%;
+                                    margin-left: percentage(5 / $nation-W);
+                                }
+                            }
+                            &__allBetNum{
+                                width: percentage(300 / $betbox-W);
+                                height: percentage(44 / $betbox-H);
+                                position: absolute;
+                                top: percentage(208 / $betbox-H);
+                                left: percentage(($betbox-W - 300)/ 2 / $betbox-W);
+                                p{
+                                    color: #FFEA00;
+                                    text-align: center;
+                                    font-weight: bold;
+                                    line-height: 1em;
+                                    @include fontSize(20, 48);
+                                    font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                }
+                            }
+                            &__myBetNum{
+                                width: percentage(320 / $betbox-W);
+                                position: absolute;
+                                top: percentage(280 / $betbox-H);
+                                left: percentage(($betbox-W - 320) / 2 / $betbox-W);
+                                p {
+                                    color: #ffd180;
+                                    text-align: center;
+                                    font-weight: 400;
+                                    line-height: 1em;
+                                    @include fontSize(12, 22);
+                                    font-family: 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                }
+                            }
+                            $betting-W: 239;
+                            $betting-H: 76;
+                            &__betting{
+                                width: percentage($betting-W / $betbox-W);
+                                height: percentage($betting-H / $betbox-H);
+                                position: absolute;
+                                top: percentage(314 / $betbox-H);
+                                left: percentage(($betbox-W - $betting-W) / 2 / $betbox-W);
+                                color: #ff610d;
+                                text-align: center;
+                                font-weight: bold;
+                                line-height: 1em;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-end;
+                                background-image: url(#{$src}betpage/bet_base.png?#{$versionNum});
+                                background-size: 100% auto;
+                                background-repeat: no-repeat;
+                                .btn {
+                                    width: percentage(47 / $betting-W);
+                                    height: percentage(60 / $betting-H );
+                                    background-repeat: no-repeat;
+                                    background-size: 100% auto;
+                                    display: none;
+                                    margin-bottom: percentage(5 / $betting-W);
+                                    &-reduce {
+                                        background-image: url(#{$src}betpage/icon_reduce.png?#{$versionNum});
+                                    }
+                                    &-add {
+                                        background-image: url(#{$src}betpage/icon_add.png?#{$versionNum});
+                                    }
+                                }
+                                input {
+                                    width: 100%;
+                                    flex:1;
+                                    background-color: transparent;
+                                    border: 0;
+                                    color: #ff610d;
+                                    text-align: center;
+                                    @include fontSize(14, 38);
+                                    font-weight: bold;
+                                    font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                    position: relative;
+                                    top: percentage(-10 / $betting-H);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .swiper-button{
+                &-next,
+                &-prev{
+                    width: percentage($swiper-button-W / $betpage__betbox-W);
+                    height: percentage($swiper-button-H / $betbox-H);
+                    top: percentage(170 / $betbox-H);
+                    color: initial;
+                    opacity: 1;
+                    z-index: 1;
+                    &::after{
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        background-size: 100%!important;
+                    }
+                }
+                &-next{
+                    &::after{
+                        background-image: url(#{$src}btn_arrow_next.png?#{$versionNum});
+                        opacity: 1;
+                    }
+                }
+                &-prev{
+                    &::after{
+                        background-image: url(#{$src}btn_arrow_prev.png?#{$versionNum});
+                        opacity: 1;
+                    }
+                }
+            }
+            &.betGame{
+                width: percentage($betpage__betGame-W / $popup-bet-W);
+                height: percentage($betbox-betGame-H / $popup-bet-H);
+                top: percentage(150 / $popup-bet-H);
+                left: percentage(($popup-bet-W - $betpage__betGame-W) / 2 / $popup-bet-W);
+                .betpage__betbox-bet{
+                    width: percentage($betpage__betGame-W / $betpage__betGame-W);
+                    height: 100%;
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    .swiper-wrapper{
+                        display: flex;
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                    }
+                    .swiper-slide{
+                        width: percentage($betbox-betGame-W / $betpage__betGame-W);
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        background-image: url(#{$src}betpage/betbox2_bg.png?#{$versionNum});
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                        transform: translateZ(0) scale(0.85)!important;
+                        cursor: pointer;
+                        &.swiper-slide-active{
+                            background-image: url(#{$src}betpage/betbox2_bg_active.png?#{$versionNum});
+                            transform: translateZ(0) scale(1)!important;
+                            .betbox{
+                                &__betting {
+                                    .btn {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                        .betbox{
+                            width: 100%;
+                            height: 100%;
+                            position: relative;
+                            &__nation{
+                                width: percentage($nation-betGame-W / $betbox-betGame-W);
+                                height: percentage($nation-betGame-H / $betbox-betGame-H);
+                                position: absolute;
+                                top: percentage(80 / $betbox-betGame-H);
+                                left: percentage(($betbox-betGame-W - $nation-betGame-W) / 2 / $betbox-betGame-W);
+                                display: flex;
+                                justify-content: space-around;
+                                img{
+                                    display: block;
+                                    width:100%;
+                                    margin-left: percentage(5 / $nation-betGame-W);
+                                }
+                            }
+                            &__allBetNum{
+                                width: percentage(300 / $betbox-betGame-W);
+                                height: percentage(44 / $betbox-betGame-H);
+                                position: absolute;
+                                top: percentage(202 / $betbox-betGame-H);
+                                left: percentage(($betbox-betGame-W - 300)/ 2 / $betbox-betGame-W);
+                                p{
+                                    color: #FFEA00;
+                                    text-align: center;
+                                    font-weight: bold;
+                                    line-height: 1em;
+                                    @include fontSize(20, 48);
+                                    font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                }
+                            }
+                            &__myBetNum{
+                                width: percentage(320 / $betbox-betGame-W);
+                                position: absolute;
+                                top: percentage(275 / $betbox-betGame-H);
+                                left: percentage(($betbox-betGame-W - 320) / 2 / $betbox-betGame-W);
+                                p {
+                                    color: #ffd180;
+                                    text-align: center;
+                                    font-weight: 400;
+                                    line-height: 1em;
+                                    @include fontSize(12, 22);
+                                    font-family: 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                }
+                            }
+                            $betting-W: 236;
+                            $betting-H: 62;
+                            &__betting{
+                                width: percentage($betting-W / $betbox-betGame-W);
+                                height: percentage($betting-H / $betbox-betGame-H);
+                                position: absolute;
+                                top: percentage(320 / $betbox-betGame-H);
+                                left: percentage(($betbox-betGame-W - $betting-W) / 2 / $betbox-betGame-W);
+                                color: #ff610d;
+                                text-align: center;
+                                font-weight: bold;
+                                line-height: 1em;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                .btn {
+                                    width: percentage(47 / $betting-W);
+                                    height: percentage(60 / $betting-H );
+                                    background-repeat: no-repeat;
+                                    background-size: 100% auto;
+                                    display: none;
+                                    @media (hover: hover) {
+                                        &:hover {
+                                            filter: brightness(1.1);
+                                        }
+                                    }
+                                    &.off {
+                                        cursor: default;
+                                        filter: grayscale(1) brightness(0.5);
+                                    }
+                                    &-reduce {
+                                        background-image: url(#{$src}betpage/icon_reduce.png?#{$versionNum});
+                                    }
+                                    &-add {
+                                        background-image: url(#{$src}betpage/icon_add.png?#{$versionNum});
+                                    }
+                                }
+                                input {
+                                    width: 100%;
+                                    flex:1;
+                                    background-color: transparent;
+                                    border: 0;
+                                    color: #ff610d;
+                                    text-align: center;
+                                    @include fontSize(14, 38);
+                                    font-weight: bold;
+                                    font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+                                    margin-top: percentage(3 / $betting-W);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &__note {
+            width: 100%;
+            position: absolute;
+            top: percentage(576 / $popup-bet-H);
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+            line-height: 1em;
+            @include fontSize(18, 32);
+            font-family: 'Chiron GoRound TC', 'noto sans tc', 'noto sans', '微軟正黑體', 'Helvetica', 'Arial', 'PingFangTC-Light', 'STHeitiTC-Light', 'Microsoft JhengHei', sans-serif;
+        }
+        &__betBtns{
+            width: 100%;
+            height: percentage(74 / $popup-bet-H);
+            position: absolute;
+            top: percentage(630 / $popup-bet-H);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .btn{
+                &_bet{
+                    width: percentage(229 / $popup-bet-W);
+                    height: 100%;
+                    margin: 0 percentage(16 / $popup-bet-W);
+                    background-size: 100%;
+                    cursor: pointer;
+                    &Clear{
+                        background-image: url(#{$src}betpage/btn_reselect.png?#{$versionNum});
+                    }
+                    &Sure{
+                        background-image: url(#{$src}betpage/btn_betall.png?#{$versionNum});
+                    }
+                }
+            }
+        }
+    }
+    a.btn-close {
+        position: absolute;
+        display: block;
+        top: percentage(24 / $baseHeight);
+        right:percentage(16 / $baseWidth);
+        width:50px;
+        height: 50px;
+        background-image: url(#{$src}btn_close.png);
+        background-size: 100% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        z-index: 9;
+        @media only screen and (max-width: 798px){
+            width:35px;
+            height: 35px;
+        }
+        @media only screen and (max-height: 798px){
+            width:35px;
+            height: 35px;
+        }
+    }
+}
+/* ================= table設定 ================= */
+$tableColor:#ff9b58;//table顏色
+$tableColor-edge: adjust-color($tableColor, $lightness: -8%);
+$tableColor-border: #af6928;
+$tableColor-lightness:lightness($tableColor);//取基準色亮度
+$tableColor-saturation:saturation($tableColor);//取基準色飽和度
+$tableColor-hue:hue($tableColor);//取基準色環角度
+
+%table-border{
+    border: 1px solid $tableColor-border;
+}
+.table{
+    font-family: "Helvetica Neue","微軟正黑體","Helvetica","Arial","PingFangTC-Light","STHeitiTC-Light","Microsoft JhengHei",sans-serif;
+    font-size: 1em;
+    border-collapse: collapse;
+    border-radius: 5px;
+    color: #532a08;
+    border: 3px solid $tableColor-border;
+    margin: 0 0 20px 0;
+    //  table-layout: fixed; //表格平均等分
+    tr{
+        background: transparent;
+        th{
+            position: relative;
+            @extend %table-border;
+            background: linear-gradient(to top,$tableColor-edge 0%, $tableColor 100%);
+            @if ($tableColor-hue <= 35deg or $tableColor-hue >= 200deg) and $tableColor-lightness <= 75%{
+                color: #fff;
+            }
+            @else if ($tableColor-saturation < 50% and ($tableColor-hue > 35deg and $tableColor-hue < 200deg) and $tableColor-lightness <= 60%) or ($tableColor-hue > 35deg and $tableColor-hue < 200deg) and $tableColor-lightness <= 40% {
+                color: #fff;
+            }@else{
+                color:change-color($tableColor, $lightness:20%);
+            }
+            &.thStyle02{
+                color:#752b00;
+                background: #ffec80;
+            }
+        }
+        td{
+            @extend %table-border;
+            text-align: center;
+            padding: 3px;
+            color: #fff;
+            p{
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap:wrap;
+                align-items: center;
+            }
+            img{
+                display: block;
+                margin: 0 auto;
+                max-width: 100%;
+                &.img-inline{
+                    width: 4em;
+                    display: inline;
+                    margin: 0;
+                }
+            }
+            /*單格變色*/
+            &[data-tdstyle="style01"]{
+                background-color: #f6f6f6;
+            }
+        }
+    }
+}
+
+//*=================影片對位=================*//
+#background-video{
+    width: 100%!important;
+    height: 100%!important;
+    object-fit: cover;
+    position: absolute;
+    left: -5%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    transform: translateZ(0px);
+    filter: brightness(1);
+}
+#animation_container{
+    width: 100%!important;
+    height: 100%!important;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+}

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figma → Code | AI 輔助自動化切版工具</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Navigation Bar -->
+    <header id="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs><linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
+            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+            <line x1="12" y1="22" x2="12" y2="15.5"/>
+            <polyline points="22 8.5 12 15.5 2 8.5"/>
+          </svg>
+          <span class="logo-text">Figma → Code</span>
+        </div>
+        <nav id="main-nav">
+          <button class="nav-btn active" data-view="view-connect" id="nav-connect">
+            <i data-lucide="plug" class="nav-icon"></i>
+            <span>連接</span>
+          </button>
+          <button class="nav-btn" data-view="view-select" id="nav-select" disabled>
+            <i data-lucide="git-branch" class="nav-icon"></i>
+            <span>選擇節點</span>
+          </button>
+          <button class="nav-btn" data-view="view-editor" id="nav-editor" disabled>
+            <i data-lucide="code-2" class="nav-icon"></i>
+            <span>視覺編輯器</span>
+          </button>
+          <button class="nav-btn" data-view="view-prompt" id="nav-prompt" disabled>
+            <i data-lucide="bot" class="nav-icon"></i>
+            <span>Claude 提示詞</span>
+          </button>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div id="save-status" class="save-status hidden">
+          <span class="save-dot"></span>
+          <span class="save-text">已儲存</span>
+        </div>
+        <div id="connection-status" class="status-badge disconnected">
+          <span class="status-dot"></span>
+          <span class="status-text">未連接</span>
+        </div>
+        <button class="icon-btn" id="btn-shortcuts" title="鍵盤快捷鍵">
+          <i data-lucide="keyboard"></i>
+        </button>
+        <button class="icon-btn" id="btn-settings" title="設定">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="progress-bar hidden">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- ========== VIEW 1: CONNECT ========== -->
+    <main id="view-connect" class="view active">
+      <div class="connect-wrapper">
+        <div class="connect-card glass-card">
+          <div class="connect-hero">
+            <h1 class="gradient-text">Figma → Code</h1>
+            <p class="subtitle">AI 輔助自動化切版工具</p>
+            <p class="description">連接你的 Figma 設計稿，自動解析設計元素，生成乾淨的 HTML/CSS 程式碼</p>
+          </div>
+
+          <div class="connect-form">
+            <!-- Token Section -->
+            <div class="form-section">
+              <label class="form-label">
+                <i data-lucide="key" class="label-icon"></i>
+                Figma Personal Access Token
+              </label>
+              <div class="input-group">
+                <input type="password" id="input-token" class="form-input" placeholder="figd_xxxxxxxxxxxxxxxx" autocomplete="off">
+                <button class="icon-btn input-addon" id="btn-toggle-token" title="顯示/隱藏">
+                  <i data-lucide="eye-off" id="icon-toggle-token"></i>
+                </button>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-secondary btn-sm" id="btn-save-token">
+                  <i data-lucide="save" class="btn-icon"></i>
+                  儲存 Token
+                </button>
+                <span class="token-status" id="token-status"></span>
+              </div>
+            </div>
+
+            <!-- URL Section -->
+            <div class="form-section">
+              <label class="form-label">
+                <i data-lucide="link" class="label-icon"></i>
+                Figma 檔案連結
+              </label>
+              <div class="input-group">
+                <input type="text" id="input-figma-url" class="form-input" placeholder="https://www.figma.com/design/XXXXX/...?node-id=1-38">
+                <button class="icon-btn input-addon" id="btn-paste-url" title="貼上">
+                  <i data-lucide="clipboard-paste"></i>
+                </button>
+              </div>
+              <div id="url-node-hint" class="url-hint hidden">
+                <i data-lucide="zap" style="width:14px;height:14px;color:#58a6ff;"></i>
+                <span>偵測到 node-id：<strong id="detected-node-id"></strong>，將使用<em>一鍵切版</em>模式</span>
+              </div>
+              <p class="hint-text" style="margin-top:4px; display: flex; justify-content: space-between; align-items: center;">
+                <span>💡 貼入含 <code style="background:rgba(88,166,255,0.15);padding:1px 4px;border-radius:3px;">node-id</code> 的連結可一鍵切版</span>
+                <button class="btn btn-secondary btn-sm" id="btn-clear-disk-cache" style="color: #ff6b6b; border-color: rgba(255,107,107,0.3); padding: 2px 6px; font-size: 11px;" title="清除伺服器快取的 JSON 檔案與過期圖片">
+                  <i data-lucide="trash-2" style="width:12px;height:12px;margin-right:4px;"></i>
+                  清除快取
+                </button>
+              </p>
+            </div>
+
+            <!-- Connect Button -->
+            <button class="btn btn-primary btn-lg btn-full" id="btn-connect">
+              <i data-lucide="zap" class="btn-icon"></i>
+              <span class="btn-text">連接 Figma</span>
+              <div class="spinner hidden" id="connect-spinner"></div>
+            </button>
+
+            <!-- Divider -->
+            <div class="form-divider">
+              <span>或者</span>
+            </div>
+
+            <!-- Local Demo Button -->
+            <button class="btn btn-secondary btn-lg btn-full" id="btn-local-demo">
+              <i data-lucide="folder-open" class="btn-icon"></i>
+              <span class="btn-text">使用本地設計稿 (ingame)</span>
+            </button>
+            <p class="hint-text">無需 Token，直接讀取 ingame 資料夾的設計稿進行測試</p>
+
+            <!-- Connection Status -->
+            <div class="connect-status" id="connect-status-area">
+              <div class="status-steps" id="status-steps"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="connect-features">
+          <div class="feature-card glass-card">
+            <i data-lucide="scan" class="feature-icon"></i>
+            <h3>自動解析</h3>
+            <p>智慧解析 Figma 設計結構，提取樣式屬性</p>
+          </div>
+          <div class="feature-card glass-card">
+            <i data-lucide="code-2" class="feature-icon"></i>
+            <h3>程式碼生成</h3>
+            <p>生成語義化 HTML 與組織良好的 CSS</p>
+          </div>
+          <div class="feature-card glass-card">
+            <i data-lucide="bot" class="feature-icon"></i>
+            <h3>AI 提示詞</h3>
+            <p>產生結構化 Claude 提示詞，精準還原設計</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========== VIEW 2: SELECT NODES ========== -->
+    <main id="view-select" class="view">
+      <div class="select-layout">
+        <!-- Left Sidebar: File Info -->
+        <aside class="select-sidebar">
+          <div class="panel-header">
+            <i data-lucide="file" class="panel-icon"></i>
+            <span>檔案資訊</span>
+          </div>
+          <div class="file-info-card">
+            <div class="file-thumbnail" id="file-thumbnail">
+              <div class="thumbnail-placeholder">
+                <i data-lucide="image"></i>
+              </div>
+            </div>
+            <div class="file-details">
+              <h3 class="file-name" id="file-name">—</h3>
+              <div class="file-meta">
+                <span class="meta-item" id="file-last-modified">
+                  <i data-lucide="clock" class="meta-icon"></i>
+                  <span>—</span>
+                </span>
+                <span class="meta-item" id="file-version">
+                  <i data-lucide="git-commit" class="meta-icon"></i>
+                  <span>—</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-actions">
+            <button class="btn btn-ghost btn-sm btn-full" id="btn-select-all">
+              <i data-lucide="check-square" class="btn-icon"></i>
+              全部選取
+            </button>
+            <button class="btn btn-ghost btn-sm btn-full" id="btn-deselect-all">
+              <i data-lucide="square" class="btn-icon"></i>
+              取消全選
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main: Tree View -->
+        <div class="select-main">
+          <div class="panel-header">
+            <i data-lucide="list-tree" class="panel-icon"></i>
+            <span>頁面與框架</span>
+            <div class="search-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="input-search-nodes" class="search-input" placeholder="搜尋節點...">
+              <button class="search-clear-btn" id="btn-clear-search" title="清除搜尋" style="display:none">
+                <i data-lucide="x" style="width:12px;height:12px"></i>
+              </button>
+            </div>
+          </div>
+          <div class="tree-container" id="node-tree"></div>
+        </div>
+
+        <!-- Right Panel: Preview -->
+        <aside class="select-preview">
+          <div class="panel-header">
+            <i data-lucide="eye" class="panel-icon"></i>
+            <span>預覽</span>
+          </div>
+          <div class="preview-content" id="node-preview">
+            <div class="preview-placeholder">
+              <i data-lucide="mouse-pointer-click"></i>
+              <p>選擇節點以預覽</p>
+            </div>
+          </div>
+          <div class="preview-info" id="preview-info"></div>
+        </aside>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="select-bottombar">
+        <div class="selected-count">
+          已選擇 <strong id="selected-count">0</strong> 個節點
+          <span id="selected-detail" class="selected-type-detail" style="display:none"></span>
+        </div>
+        <div class="bottombar-actions">
+          <button class="btn btn-secondary" id="btn-back-connect">
+            <i data-lucide="arrow-left" class="btn-icon"></i>
+            返回
+          </button>
+          <button class="btn btn-primary" id="btn-start-convert" disabled>
+            <i data-lucide="play" class="btn-icon"></i>
+            開始轉換
+            <div class="spinner hidden" id="convert-spinner"></div>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========== VIEW 3: VISUAL EDITOR ========== -->
+    <main id="view-editor" class="view">
+      <div class="editor-layout">
+        <!-- Left Panel: Design Tree -->
+        <div class="editor-panel panel-left" id="panel-left" style="width:240px">
+          <div class="panel-header">
+            <i data-lucide="layers" class="panel-icon"></i>
+            <span>設計樹</span>
+          </div>
+          <div class="tree-container" id="design-tree"></div>
+        </div>
+
+        <div class="panel-divider" id="divider-left" data-direction="horizontal"></div>
+
+        <!-- Center: Preview + Code -->
+        <div class="editor-center">
+          <!-- Center Top: Live Preview -->
+          <div class="editor-preview" id="panel-preview">
+            <div class="preview-toolbar">
+              <div class="toolbar-group">
+                <button class="icon-btn" id="btn-back-to-select" title="返回選擇畫面" style="color: var(--accent-primary); margin-right: 4px;">
+                  <i data-lucide="arrow-left"></i>
+                </button>
+                <span class="toolbar-separator" style="width: 1px; height: 20px; background: var(--border-primary); margin: 0 4px;"></span>
+              </div>
+              <div class="toolbar-group">
+                <button class="icon-btn" id="btn-toggle-edit" title="切換編輯模式 (關閉時可正常操作介面)">
+                  <i data-lucide="mouse-pointer" id="icon-edit-mode"></i>
+                </button>
+                <span class="edit-mode-label" id="edit-mode-label">瀏覽模式</span>
+              </div>
+              <div class="toolbar-group">
+                <button class="icon-btn" id="btn-undo" title="復原 (Ctrl+Z)" disabled>
+                  <i data-lucide="undo-2"></i>
+                </button>
+                <button class="icon-btn" id="btn-redo" title="重做 (Ctrl+Y)" disabled>
+                  <i data-lucide="redo-2"></i>
+                </button>
+              </div>
+              <div class="toolbar-group">
+                <button class="icon-btn" id="btn-zoom-out" title="縮小">
+                  <i data-lucide="zoom-out"></i>
+                </button>
+                <span class="zoom-level" id="zoom-level">100%</span>
+                <button class="icon-btn" id="btn-zoom-in" title="放大">
+                  <i data-lucide="zoom-in"></i>
+                </button>
+                <button class="icon-btn" id="btn-zoom-reset" title="重設">
+                  <i data-lucide="maximize-2"></i>
+                </button>
+              </div>
+              <div class="toolbar-group device-selector" style="display: none;">
+                <button class="icon-btn device-btn" data-device="ios" data-width="844" data-height="390" id="btn-device-ios" title="iOS 橫屏 (844×390)" style="display: none;">
+                  <i data-lucide="smartphone"></i>
+                  <span class="device-label">iOS</span>
+                </button>
+                <button class="icon-btn device-btn" data-device="android" data-width="800" data-height="360" id="btn-device-android" title="Android 橫屏 (800×360)" style="display: none;">
+                  <i data-lucide="tablet-smartphone"></i>
+                  <span class="device-label">Android</span>
+                </button>
+                <button class="icon-btn device-btn active" data-device="win" data-width="1280" data-height="720" id="btn-device-win" title="Windows 桌面 (1280×720)" style="display: none;">
+                  <i data-lucide="monitor"></i>
+                  <span class="device-label">WIN</span>
+                </button>
+                <button class="icon-btn device-btn" data-device="event" data-width="800" data-height="600" id="btn-device-event" title="活動頁 (800×600)" style="display: none;">
+                  <i data-lucide="globe"></i>
+                  <span class="device-label">活動頁</span>
+                </button>
+
+              </div>
+              <div class="toolbar-group screen-selector">
+                <select class="form-select" id="select-editor-screen" style="width: auto; height: 32px; padding: 2px 8px; font-size: 12px; background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 4px; outline: none; cursor: pointer;">
+                  <option value="main">主畫面</option>
+                </select>
+              </div>
+              <div class="toolbar-group figma-overlay-controls" style="display: flex; align-items: center; gap: 8px;">
+                <button class="icon-btn" id="btn-toggle-figma-overlay" title="對比設計稿 (Figma)">
+                  <i data-lucide="layers"></i>
+                  <span style="font-size: 11px; margin-left: 4px; display: inline-block;">設計稿對比</span>
+                </button>
+                <div style="display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-muted);">
+                  <span>透明度</span>
+                  <input type="range" id="figma-overlay-opacity" min="0" max="1" step="0.05" value="0.5" style="width: 60px; height: 4px; outline: none; cursor: pointer; background: var(--border-color);">
+                  <span id="figma-overlay-opacity-label" style="width: 25px; text-align: right;">50%</span>
+                </div>
+              </div>
+              <div class="toolbar-group">
+                <button class="icon-btn" id="btn-refresh-preview" title="重新整理預覽">
+                  <i data-lucide="refresh-cw"></i>
+                </button>
+                <button class="icon-btn" id="btn-save-now" title="立即儲存 (Ctrl+S)">
+                  <i data-lucide="save"></i>
+                </button>
+                <button class="icon-btn" id="btn-restore" title="還原檔案">
+                  <i data-lucide="rotate-ccw"></i>
+                </button>
+              </div>
+            </div>
+            <div class="device-info-bar" id="device-info-bar">
+              <span class="device-info-name" id="device-info-name">iOS 橫屏</span>
+              <span class="device-info-resolution" id="device-info-resolution">844 × 390</span>
+              <span class="device-info-ratio" id="device-info-ratio">16:9</span>
+            </div>
+            <div class="preview-frame-wrapper" id="preview-frame-wrapper">
+              <div class="preview-frame-container" id="preview-frame-container">
+                <iframe id="preview-iframe" sandbox="allow-same-origin allow-scripts"></iframe>
+                <div id="figma-overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.5; z-index: 10; background-position: top center; background-repeat: no-repeat; background-size: 100% 100%;"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="panel-divider" id="divider-bottom" data-direction="vertical"></div>
+
+          <!-- Bottom: Code Output -->
+          <div class="editor-code" id="panel-code" style="height:200px">
+            <div class="code-tabs">
+              <div class="tabs-left">
+                <button class="tab-btn active" data-tab="tab-html" id="tab-btn-html">
+                  <i data-lucide="file-code" class="tab-icon"></i>
+                  HTML
+                </button>
+                <button class="tab-btn" data-tab="tab-css" id="tab-btn-css">
+                  <i data-lucide="palette" class="tab-icon"></i>
+                  CSS
+                </button>
+                <button class="tab-btn" data-tab="tab-prompt" id="tab-btn-prompt">
+                  <i data-lucide="bot" class="tab-icon"></i>
+                  Claude Prompt
+                </button>
+              </div>
+              <div class="tabs-right">
+                <span class="code-sync-badge hidden" id="code-sync-badge" title="程式碼與預覽已同步">● 已同步</span>
+                <button class="icon-btn" id="btn-copy-code" title="複製程式碼">
+                  <i data-lucide="copy"></i>
+                </button>
+                <button class="icon-btn" id="btn-download-zip" title="下載 ZIP">
+                  <i data-lucide="download"></i>
+                </button>
+                <button class="icon-btn" id="btn-toggle-code" title="展開/收合">
+                  <i data-lucide="chevrons-up"></i>
+                </button>
+              </div>
+            </div>
+            <div class="code-panels">
+              <div class="code-panel active" id="tab-html">
+                <pre><code class="language-html" id="code-html"></code></pre>
+              </div>
+              <div class="code-panel" id="tab-css">
+                <pre><code class="language-css" id="code-css"></code></pre>
+              </div>
+              <div class="code-panel" id="tab-prompt">
+                <pre><code class="language-markdown" id="code-prompt"></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-divider" id="divider-right" data-direction="horizontal"></div>
+
+        <!-- Right Panel: Properties -->
+        <div class="editor-panel panel-right" id="panel-right" style="width:280px">
+          <div class="panel-header">
+            <i data-lucide="sliders-horizontal" class="panel-icon"></i>
+            <span>屬性面板</span>
+          </div>
+          <!-- File selection dropdown, visible if there are multiple local files -->
+          <div class="editor-file-selector-container hidden" id="editor-file-selector-container">
+            <label class="form-label">
+              <i data-lucide="file-text" class="label-icon"></i>
+              編輯中檔案
+            </label>
+            <select class="form-select" id="editor-file-select"></select>
+          </div>
+          <div class="properties-content" id="properties-panel">
+            <div class="properties-placeholder">
+              <i data-lucide="mouse-pointer-click"></i>
+              <p>選擇元素以檢視屬性</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========== VIEW 4: CLAUDE PROMPT ========== -->
+    <main id="view-prompt" class="view">
+      <div class="prompt-layout">
+        <div class="prompt-sidebar">
+          <div class="panel-header">
+            <i data-lucide="settings-2" class="panel-icon"></i>
+            <span>輸出選項</span>
+          </div>
+          <div class="prompt-options">
+            <div class="option-group">
+              <label class="form-label">目標框架</label>
+              <select class="form-select" id="select-framework">
+                <option value="html-css">HTML / CSS</option>
+                <option value="react">React</option>
+                <option value="vue">Vue.js</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label class="form-label">響應式模式</label>
+              <select class="form-select" id="select-responsive">
+                <option value="mobile-first">Mobile First</option>
+                <option value="desktop-first">Desktop First</option>
+                <option value="none">不啟用</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label class="form-label">命名慣例</label>
+              <select class="form-select" id="select-naming">
+                <option value="bem">BEM</option>
+                <option value="camelCase">camelCase</option>
+                <option value="kebab-case">kebab-case</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label class="form-label">CSS 單位</label>
+              <select class="form-select" id="select-units">
+                <option value="px">px</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label class="toggle-label">
+                <input type="checkbox" id="check-include-images" checked>
+                <span class="toggle-switch"></span>
+                <span>包含圖片資產連結</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="toggle-label">
+                <input type="checkbox" id="check-include-colors" checked>
+                <span class="toggle-switch"></span>
+                <span>包含色彩系統</span>
+              </label>
+            </div>
+            <div class="option-group">
+              <label class="toggle-label">
+                <input type="checkbox" id="check-include-typography" checked>
+                <span class="toggle-switch"></span>
+                <span>包含字型系統</span>
+              </label>
+            </div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn btn-primary btn-full" id="btn-regenerate-prompt">
+              <i data-lucide="refresh-cw" class="btn-icon"></i>
+              重新生成
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-main">
+          <div class="panel-header">
+            <i data-lucide="file-text" class="panel-icon"></i>
+            <span>Claude 結構化提示詞</span>
+            <div class="header-actions">
+              <button class="btn btn-secondary btn-sm" id="btn-copy-prompt">
+                <i data-lucide="copy" class="btn-icon"></i>
+                複製到剪貼簿
+              </button>
+            </div>
+          </div>
+          <div class="prompt-preview" id="prompt-preview">
+            <pre><code class="language-markdown" id="prompt-output"></code></pre>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="shortcuts-modal hidden" id="shortcuts-modal">
+      <div class="shortcuts-backdrop" id="shortcuts-backdrop"></div>
+      <div class="shortcuts-content glass-card">
+        <div class="shortcuts-header">
+          <h3>鍵盤快捷鍵</h3>
+          <button class="icon-btn" id="btn-close-shortcuts">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="shortcuts-body">
+          <div class="shortcut-group">
+            <h4>編輯操作</h4>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>Z</kbd><span>復原</span></div>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>Y</kbd><span>重做</span></div>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>S</kbd><span>立即儲存</span></div>
+            <div class="shortcut-item"><kbd>Delete</kbd><span>刪除選取元素</span></div>
+            <div class="shortcut-item"><kbd>↑↓←→</kbd><span>微調位置 (1px)</span></div>
+            <div class="shortcut-item"><kbd>Shift</kbd>+<kbd>↑↓←→</kbd><span>大步微調 (10px)</span></div>
+          </div>
+          <div class="shortcut-group">
+            <h4>預覽操作</h4>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>E</kbd><span>切換編輯/瀏覽模式</span></div>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>+</kbd><span>放大預覽</span></div>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>-</kbd><span>縮小預覽</span></div>
+            <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>0</kbd><span>重設縮放</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>關閉彈窗/取消選取</span></div>
+            <div class="shortcut-item"><kbd>雙擊</kbd><span>編輯文字內容</span></div>
+            <div class="shortcut-item"><kbd>右鍵</kbd><span>圖層選取器</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Error Report -->
+    <div class="img-error-panel hidden" id="img-error-panel">
+      <div class="img-error-header">
+        <i data-lucide="alert-triangle" class="img-error-icon"></i>
+        <span>圖片資訊</span>
+        <button class="icon-btn" id="btn-close-img-errors" title="關閉">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="img-error-list" id="img-error-list"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/prismjs@1.29.0/prism.js"></script>
+  <script src="https://unpkg.com/prismjs@1.29.0/components/prism-css.min.js"></script>
+  <script src="https://unpkg.com/prismjs@1.29.0/components/prism-markup.min.js"></script>
+  <script src="https://unpkg.com/prismjs@1.29.0/components/prism-markdown.min.js"></script>
+  <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script type="module" src="js/utils.js"></script>
+  <script type="module" src="js/figma-api.js"></script>
+  <script type="module" src="js/node-parser.js"></script>
+  <script type="module" src="js/code-generator.js"></script>
+  <script type="module" src="js/visual-editor.js"></script>
+  <script type="module" src="js/prompt-builder.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script>
+    // Global error handler for stability
+    window.addEventListener('error', (e) => {
+      console.error('[Global Error]', e.message, e.filename, e.lineno);
+    });
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('[Unhandled Promise]', e.reason);
+    });
+  </script>
+</body>
+</html>

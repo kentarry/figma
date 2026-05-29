@@ -1,0 +1,688 @@
+
+> figma-to-code@1.0.0 dev
+> node --watch server.js
+
+
+==================================================
+  Figma-to-Code server running at http://localhost:3000
+  🎨 Figma 模式 — 可連接 Figma API
+  Local assets served at http://localhost:3000/ingame-assets/
+==================================================
+  🚀 正在自動為您開啟瀏覽器...
+  若瀏覽器未自動開啟，請造訪：http://localhost:3000
+==================================================
+
+[2026-05-29T10:15:05.818Z] GET /
+[2026-05-29T10:15:05.840Z] GET /css/style.css
+[2026-05-29T10:15:05.846Z] GET /js/utils.js
+[2026-05-29T10:15:05.847Z] GET /js/figma-api.js
+[2026-05-29T10:15:05.847Z] GET /js/node-parser.js
+[2026-05-29T10:15:05.847Z] GET /js/code-generator.js
+[2026-05-29T10:15:05.848Z] GET /js/visual-editor.js
+[2026-05-29T10:15:05.849Z] GET /js/prompt-builder.js
+[2026-05-29T10:15:05.853Z] GET /js/app.js
+[2026-05-29T10:15:06.216Z] GET /favicon.ico
+[2026-05-29T10:16:03.148Z] GET /
+[2026-05-29T10:16:03.196Z] GET /css/style.css
+[2026-05-29T10:16:03.203Z] GET /js/utils.js
+[2026-05-29T10:16:03.207Z] GET /js/figma-api.js
+[2026-05-29T10:16:03.210Z] GET /js/node-parser.js
+[2026-05-29T10:16:03.210Z] GET /js/code-generator.js
+[2026-05-29T10:16:03.214Z] GET /js/visual-editor.js
+[2026-05-29T10:16:03.215Z] GET /js/prompt-builder.js
+[2026-05-29T10:16:03.215Z] GET /js/app.js
+[2026-05-29T10:16:03.690Z] GET /favicon.ico
+[2026-05-29T10:16:04.397Z] GET /api/local/scan
+Restarting 'server.js'
+
+==================================================
+  Figma-to-Code server running at http://localhost:3000
+  🎨 Figma 模式 — 可連接 Figma API
+  Local assets served at http://localhost:3000/ingame-assets/
+==================================================
+  🚀 正在自動為您開啟瀏覽器...
+  若瀏覽器未自動開啟，請造訪：http://localhost:3000
+==================================================
+
+[2026-05-29T10:22:50.812Z] GET /
+[2026-05-29T10:22:50.843Z] GET /css/style.css
+[2026-05-29T10:22:50.847Z] GET /js/utils.js
+[2026-05-29T10:22:50.852Z] GET /js/figma-api.js
+[2026-05-29T10:22:50.852Z] GET /js/node-parser.js
+[2026-05-29T10:22:50.853Z] GET /js/code-generator.js
+[2026-05-29T10:22:50.853Z] GET /js/visual-editor.js
+[2026-05-29T10:22:50.854Z] GET /js/prompt-builder.js
+[2026-05-29T10:22:50.857Z] GET /js/app.js
+[2026-05-29T10:22:51.231Z] GET /favicon.ico
+Restarting 'server.js'
+
+==================================================
+  Figma-to-Code server running at http://localhost:3000
+  🎨 Figma 模式 — 可連接 Figma API
+  Local assets served at http://localhost:3000/ingame-assets/
+==================================================
+  🚀 正在自動為您開啟瀏覽器...
+  若瀏覽器未自動開啟，請造訪：http://localhost:3000
+==================================================
+
+[2026-05-29T10:22:54.788Z] GET /
+[2026-05-29T10:22:54.807Z] GET /css/style.css
+[2026-05-29T10:22:54.812Z] GET /js/utils.js
+[2026-05-29T10:22:54.818Z] GET /js/figma-api.js
+[2026-05-29T10:22:54.818Z] GET /js/node-parser.js
+[2026-05-29T10:22:54.819Z] GET /js/code-generator.js
+[2026-05-29T10:22:54.819Z] GET /js/visual-editor.js
+[2026-05-29T10:22:54.821Z] GET /js/prompt-builder.js
+[2026-05-29T10:22:54.822Z] GET /js/app.js
+[2026-05-29T10:22:55.162Z] GET /favicon.ico
+Restarting 'server.js'
+
+==================================================
+  Figma-to-Code server running at http://localhost:3000
+  🎨 Figma 模式 — 可連接 Figma API
+  Local assets served at http://localhost:3000/ingame-assets/
+==================================================
+  🚀 正在自動為您開啟瀏覽器...
+  若瀏覽器未自動開啟，請造訪：http://localhost:3000
+==================================================
+
+[2026-05-29T10:23:06.584Z] GET /
+[2026-05-29T10:23:06.604Z] GET /css/style.css
+[2026-05-29T10:23:06.610Z] GET /js/utils.js
+[2026-05-29T10:23:06.611Z] GET /js/figma-api.js
+[2026-05-29T10:23:06.613Z] GET /js/node-parser.js
+[2026-05-29T10:23:06.613Z] GET /js/code-generator.js
+[2026-05-29T10:23:06.614Z] GET /js/visual-editor.js
+[2026-05-29T10:23:06.616Z] GET /js/prompt-builder.js
+[2026-05-29T10:23:06.617Z] GET /js/app.js
+[2026-05-29T10:23:06.949Z] GET /favicon.ico
+[2026-05-29T10:24:04.554Z] GET /
+[2026-05-29T10:24:04.579Z] GET /css/style.css
+[2026-05-29T10:24:04.587Z] GET /js/utils.js
+[2026-05-29T10:24:04.590Z] GET /js/figma-api.js
+[2026-05-29T10:24:04.590Z] GET /js/node-parser.js
+[2026-05-29T10:24:04.593Z] GET /js/code-generator.js
+[2026-05-29T10:24:04.593Z] GET /js/prompt-builder.js
+[2026-05-29T10:24:04.593Z] GET /js/visual-editor.js
+[2026-05-29T10:24:04.595Z] GET /js/app.js
+[2026-05-29T10:24:05.170Z] GET /favicon.ico
+[2026-05-29T10:24:05.776Z] GET /api/local/scan
+[2026-05-29T10:24:36.237Z] GET /
+[2026-05-29T10:24:36.259Z] GET /css/style.css
+[2026-05-29T10:24:36.271Z] GET /js/utils.js
+[2026-05-29T10:24:36.272Z] GET /js/figma-api.js
+[2026-05-29T10:24:36.273Z] GET /js/node-parser.js
+[2026-05-29T10:24:36.277Z] GET /js/code-generator.js
+[2026-05-29T10:24:36.278Z] GET /js/visual-editor.js
+[2026-05-29T10:24:36.278Z] GET /js/prompt-builder.js
+[2026-05-29T10:24:36.279Z] GET /js/app.js
+[2026-05-29T10:24:36.979Z] GET /favicon.ico
+[2026-05-29T10:24:37.676Z] GET /api/local/scan
+[2026-05-29T10:25:02.721Z] GET /
+[2026-05-29T10:25:02.774Z] GET /css/style.css
+[2026-05-29T10:25:02.784Z] GET /js/utils.js
+[2026-05-29T10:25:02.788Z] GET /js/figma-api.js
+[2026-05-29T10:25:02.789Z] GET /js/node-parser.js
+[2026-05-29T10:25:02.790Z] GET /js/code-generator.js
+[2026-05-29T10:25:02.791Z] GET /js/visual-editor.js
+[2026-05-29T10:25:02.792Z] GET /js/prompt-builder.js
+[2026-05-29T10:25:02.794Z] GET /js/app.js
+[2026-05-29T10:25:03.476Z] GET /favicon.ico
+[2026-05-29T10:25:04.211Z] GET /api/local/scan
+[2026-05-29T10:25:04.606Z] GET /api/local/parse?path=index.aspx
+[2026-05-29T10:25:04.741Z] GET /ingame-assets/images/text_team7.png
+[2026-05-29T10:25:04.741Z] GET /ingame-assets/images/text_team6.png
+[2026-05-29T10:25:04.749Z] GET /ingame-assets/images/text_team5.png
+[2026-05-29T10:25:04.750Z] GET /ingame-assets/images/text_team4.png
+[2026-05-29T10:25:04.766Z] GET /ingame-assets/images/text_team3.png
+[2026-05-29T10:25:04.767Z] GET /ingame-assets/images/text_team2.png
+[2026-05-29T10:25:04.767Z] GET /ingame-assets/images/text_team1.png
+[2026-05-29T10:25:04.767Z] GET /ingame-assets/images/ticket-1.png
+[2026-05-29T10:25:04.768Z] GET /ingame-assets/images/info_award1.png
+[2026-05-29T10:25:04.768Z] GET /ingame-assets/images/text_group_L.png
+[2026-05-29T10:25:04.772Z] GET /ingame-assets/images/top_award_lv1.png
+[2026-05-29T10:25:04.775Z] GET /ingame-assets/images/Flag_of_Australia_c.png
+[2026-05-29T10:25:04.776Z] GET /ingame-assets/images/Flag_of_Panama_c.png
+[2026-05-29T10:25:04.777Z] GET /ingame-assets/images/Flag_of_England_c.png
+[2026-05-29T10:25:04.778Z] GET /ingame-assets/images/Flag_of_Iran_c.png
+[2026-05-29T10:25:04.779Z] GET /ingame-assets/images/text_group_A.png
+[2026-05-29T10:25:04.780Z] GET /ingame-assets/images/Flag_of_Brazil_c.png
+[2026-05-29T10:25:04.787Z] GET /ingame-assets/images/Flag_of_Germany_c.png
+[2026-05-29T10:25:04.788Z] GET /ingame-assets/images/Flag_of_Japan_c.png
+[2026-05-29T10:25:04.789Z] GET /ingame-assets/images/Flag_of_France_c.png
+[2026-05-29T10:25:04.790Z] GET /ingame-assets/images/text_group_B.png
+[2026-05-29T10:25:04.790Z] GET /ingame-assets/images/Flag_of_Spain_c.png
+[2026-05-29T10:25:04.790Z] GET /ingame-assets/images/Flag_of_Argentina_c.png
+[2026-05-29T10:25:04.794Z] GET /ingame-assets/images/Flag_of_Mexico_c.png
+[2026-05-29T10:25:04.796Z] GET /ingame-assets/images/Flag_of_South_Korea_c.png
+[2026-05-29T10:25:04.796Z] GET /ingame-assets/images/text_group_C.png
+[2026-05-29T10:25:04.797Z] GET /ingame-assets/images/top_award_lv2.png
+[2026-05-29T10:25:04.798Z] GET /ingame-assets/images/Flag_of_Portugal_c.png
+[2026-05-29T10:25:04.798Z] GET /ingame-assets/images/Flag_of_the_Netherlands_c.png
+[2026-05-29T10:25:04.799Z] GET /ingame-assets/images/Flag_of_Croatia_c.png
+[2026-05-29T10:25:04.806Z] GET /ingame-assets/images/Flag_of_Belgium_c.png
+[2026-05-29T10:25:04.808Z] GET /ingame-assets/images/text_group_D.png
+[2026-05-29T10:25:04.810Z] GET /ingame-assets/images/Flag_of_Uruguay_c.png
+[2026-05-29T10:25:04.810Z] GET /ingame-assets/images/Flag_of_Colombia_c.png
+[2026-05-29T10:25:04.811Z] GET /ingame-assets/images/Flag_of_Ecuador_c.png
+[2026-05-29T10:25:04.812Z] GET /ingame-assets/images/Flag_of_Paraguay_c.png
+[2026-05-29T10:25:04.816Z] GET /ingame-assets/images/text_group_E.png
+[2026-05-29T10:25:04.817Z] GET /ingame-assets/images/Flag_of_Sweden_c.png
+[2026-05-29T10:25:04.818Z] GET /ingame-assets/images/Flag_of_Switzerland_c.png
+[2026-05-29T10:25:04.820Z] GET /ingame-assets/images/Flag_of_Norway_c.png
+[2026-05-29T10:25:04.821Z] GET /ingame-assets/images/Flag_of_Austria_c.png
+[2026-05-29T10:25:04.822Z] GET /ingame-assets/images/text_group_F.png
+[2026-05-29T10:25:04.826Z] GET /ingame-assets/images/top_award_lv3.png
+[2026-05-29T10:25:04.828Z] GET /ingame-assets/images/Flag_of_Saudi_Arabia_c.png
+[2026-05-29T10:25:04.829Z] GET /ingame-assets/images/Flag_of_Tunisia_c.png
+[2026-05-29T10:25:04.830Z] GET /ingame-assets/images/Flag_of_Morocco_c.png
+[2026-05-29T10:25:04.830Z] GET /ingame-assets/images/Flag_of_Senegal_c.png
+[2026-05-29T10:25:04.831Z] GET /ingame-assets/images/text_group_G.png
+[2026-05-29T10:25:04.832Z] GET /ingame-assets/images/Flag_of_Ghana_c.png
+[2026-05-29T10:25:04.835Z] GET /ingame-assets/images/Flag_of_South_Africa_c.png
+[2026-05-29T10:25:04.840Z] GET /ingame-assets/images/Flag_of_Canada_c.png
+[2026-05-29T10:25:04.843Z] GET /ingame-assets/images/Flag_of_the_United_States_c.png
+[2026-05-29T10:25:04.843Z] GET /ingame-assets/images/betpage/bet2_title1.png
+[2026-05-29T10:25:04.844Z] GET /ingame-assets/images/top_award_lv4.png
+[2026-05-29T10:25:04.844Z] GET /ingame-assets/images/Flag_of_Algeria_c.png
+[2026-05-29T10:25:04.845Z] GET /ingame-assets/images/top_award_lv5.png
+[2026-05-29T10:25:04.845Z] GET /ingame-assets/images/top_award_lv6.png
+[2026-05-29T10:25:04.850Z] GET /ingame-assets/images/betpage/Flag_of_Brazil.png
+[2026-05-29T10:25:04.854Z] GET /ingame-assets/images/betpage/Flag_of_Spain.png
+[2026-05-29T10:25:04.854Z] GET /ingame-assets/images/betpage/Flag_of_England.png
+[2026-05-29T10:25:04.855Z] GET /ingame-assets/images/betpage/Flag_of_France.png
+[2026-05-29T10:25:04.855Z] GET /ingame-assets/images/betpage/Flag_of_Iran.png
+[2026-05-29T10:25:04.972Z] GET /ingame-assets/images/ingamebg.jpg
+[2026-05-29T10:25:04.973Z] GET /ingame-assets/images/switch_group_base.png
+[2026-05-29T10:25:04.974Z] GET /ingame-assets/images/info_have.png
+[2026-05-29T10:25:04.974Z] GET /ingame-assets/images/info_time.png
+[2026-05-29T10:25:04.974Z] GET /ingame-assets/images/btn_bet.png
+[2026-05-29T10:25:04.976Z] GET /ingame-assets/images/btn_question.png
+[2026-05-29T10:25:04.979Z] GET /ingame-assets/images/btn_record.png
+[2026-05-29T10:25:04.982Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:25:04.983Z] GET /ingame-assets/images/betpage/bet2_bg.png
+[2026-05-29T10:25:04.987Z] GET /ingame-assets/images/num/pop_day_6.png
+[2026-05-29T10:25:04.988Z] GET /ingame-assets/images/num/pop_day_slash.png
+[2026-05-29T10:25:04.988Z] GET /ingame-assets/images/num/pop_day_5.png
+[2026-05-29T10:25:04.991Z] GET /ingame-assets/images/betpage/betbox2_bg.png
+[2026-05-29T10:25:04.993Z] GET /ingame-assets/images/betpage/bet_base.png
+[2026-05-29T10:25:04.994Z] GET /ingame-assets/images/betpage/icon_reduce.png
+[2026-05-29T10:25:04.995Z] GET /ingame-assets/images/betpage/icon_add.png
+[2026-05-29T10:25:04.996Z] GET /ingame-assets/images/betpage/betbox2_bg_active.png
+[2026-05-29T10:25:04.996Z] GET /ingame-assets/images/betpage/btn_reselect.png
+[2026-05-29T10:25:04.997Z] GET /ingame-assets/images/betpage/btn_betall.png
+[2026-05-29T10:25:05.275Z] GET /ingame-assets/images/arrow_down.png
+[2026-05-29T10:25:05.276Z] GET /ingame-assets/images/ingamebg.jpg
+[2026-05-29T10:25:05.276Z] GET /ingame-assets/images/switch_group_base.png
+[2026-05-29T10:25:05.277Z] GET /ingame-assets/images/betbox_bg.png
+[2026-05-29T10:25:05.277Z] GET /ingame-assets/images/info_have.png
+[2026-05-29T10:25:05.278Z] GET /ingame-assets/images/info_time.png
+[2026-05-29T10:25:05.279Z] GET /ingame-assets/images/VS.png
+[2026-05-29T10:25:05.280Z] GET /ingame-assets/images/betbox_bg_active.png
+[2026-05-29T10:25:05.281Z] GET /ingame-assets/images/btn_bet.png
+[2026-05-29T10:25:05.282Z] GET /ingame-assets/images/win.png
+[2026-05-29T10:25:05.283Z] GET /ingame-assets/images/icon_winlable.png
+[2026-05-29T10:25:05.285Z] GET /ingame-assets/images/btn_arrow_next.png
+[2026-05-29T10:25:05.286Z] GET /ingame-assets/images/btn_arrow_prev.png
+[2026-05-29T10:25:05.293Z] GET /ingame-assets/images/btn_question.png
+[2026-05-29T10:25:05.294Z] GET /ingame-assets/images/btn_record.png
+[2026-05-29T10:25:05.296Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:25:05.298Z] GET /ingame-assets/images/betpage/pop_even.png
+[2026-05-29T10:25:05.298Z] GET /ingame-assets/images/betpage/bet2_bg.png
+[2026-05-29T10:25:05.298Z] GET /ingame-assets/images/num/pop_day_6.png
+[2026-05-29T10:25:05.298Z] GET /ingame-assets/images/num/pop_day_slash.png
+[2026-05-29T10:25:05.299Z] GET /ingame-assets/images/num/pop_day_5.png
+[2026-05-29T10:25:05.300Z] GET /ingame-assets/images/betpage/betbox2_bg_active.png
+[2026-05-29T10:25:05.310Z] GET /ingame-assets/images/betpage/bet_base.png
+[2026-05-29T10:25:05.310Z] GET /ingame-assets/images/betpage/icon_reduce.png
+[2026-05-29T10:25:05.311Z] GET /ingame-assets/images/betpage/icon_add.png
+[2026-05-29T10:25:05.311Z] GET /ingame-assets/images/betpage/betbox2_bg.png
+[2026-05-29T10:25:05.312Z] GET /ingame-assets/images/betpage/btn_reselect.png
+[2026-05-29T10:25:05.313Z] GET /ingame-assets/images/betpage/btn_betall.png
+[2026-05-29T10:27:03.295Z] GET /
+[2026-05-29T10:27:03.318Z] GET /css/style.css
+[2026-05-29T10:27:03.336Z] GET /js/figma-api.js
+[2026-05-29T10:27:03.339Z] GET /js/utils.js
+[2026-05-29T10:27:03.339Z] GET /js/node-parser.js
+[2026-05-29T10:27:03.340Z] GET /js/code-generator.js
+[2026-05-29T10:27:03.341Z] GET /js/visual-editor.js
+[2026-05-29T10:27:03.341Z] GET /js/prompt-builder.js
+[2026-05-29T10:27:03.367Z] GET /js/app.js
+[2026-05-29T10:27:03.989Z] GET /favicon.ico
+[2026-05-29T10:27:04.664Z] GET /api/local/scan
+[2026-05-29T10:27:05.068Z] GET /api/local/parse?path=index.aspx
+[2026-05-29T10:27:05.199Z] GET /ingame-assets/images/text_team7.png
+[2026-05-29T10:27:05.202Z] GET /ingame-assets/images/text_team6.png
+[2026-05-29T10:27:05.210Z] GET /ingame-assets/images/text_team5.png
+[2026-05-29T10:27:05.214Z] GET /ingame-assets/images/text_team4.png
+[2026-05-29T10:27:05.224Z] GET /ingame-assets/images/text_team3.png
+[2026-05-29T10:27:05.228Z] GET /ingame-assets/images/text_team2.png
+[2026-05-29T10:27:05.229Z] GET /ingame-assets/images/text_team1.png
+[2026-05-29T10:27:05.232Z] GET /ingame-assets/images/ticket-1.png
+[2026-05-29T10:27:05.234Z] GET /ingame-assets/images/info_award1.png
+[2026-05-29T10:27:05.234Z] GET /ingame-assets/images/text_group_L.png
+[2026-05-29T10:27:05.238Z] GET /ingame-assets/images/top_award_lv1.png
+[2026-05-29T10:27:05.239Z] GET /ingame-assets/images/Flag_of_Australia_c.png
+[2026-05-29T10:27:05.241Z] GET /ingame-assets/images/Flag_of_Panama_c.png
+[2026-05-29T10:27:05.241Z] GET /ingame-assets/images/Flag_of_England_c.png
+[2026-05-29T10:27:05.243Z] GET /ingame-assets/images/Flag_of_Iran_c.png
+[2026-05-29T10:27:05.244Z] GET /ingame-assets/images/text_group_A.png
+[2026-05-29T10:27:05.247Z] GET /ingame-assets/images/Flag_of_Brazil_c.png
+[2026-05-29T10:27:05.247Z] GET /ingame-assets/images/Flag_of_Germany_c.png
+[2026-05-29T10:27:05.248Z] GET /ingame-assets/images/Flag_of_Japan_c.png
+[2026-05-29T10:27:05.250Z] GET /ingame-assets/images/Flag_of_France_c.png
+[2026-05-29T10:27:05.251Z] GET /ingame-assets/images/text_group_B.png
+[2026-05-29T10:27:05.255Z] GET /ingame-assets/images/Flag_of_Spain_c.png
+[2026-05-29T10:27:05.255Z] GET /ingame-assets/images/Flag_of_Argentina_c.png
+[2026-05-29T10:27:05.256Z] GET /ingame-assets/images/Flag_of_Mexico_c.png
+[2026-05-29T10:27:05.257Z] GET /ingame-assets/images/Flag_of_South_Korea_c.png
+[2026-05-29T10:27:05.257Z] GET /ingame-assets/images/text_group_C.png
+[2026-05-29T10:27:05.259Z] GET /ingame-assets/images/top_award_lv2.png
+[2026-05-29T10:27:05.261Z] GET /ingame-assets/images/Flag_of_Portugal_c.png
+[2026-05-29T10:27:05.263Z] GET /ingame-assets/images/Flag_of_the_Netherlands_c.png
+[2026-05-29T10:27:05.265Z] GET /ingame-assets/images/Flag_of_Croatia_c.png
+[2026-05-29T10:27:05.266Z] GET /ingame-assets/images/Flag_of_Belgium_c.png
+[2026-05-29T10:27:05.266Z] GET /ingame-assets/images/text_group_D.png
+[2026-05-29T10:27:05.266Z] GET /ingame-assets/images/Flag_of_Uruguay_c.png
+[2026-05-29T10:27:05.267Z] GET /ingame-assets/images/Flag_of_Colombia_c.png
+[2026-05-29T10:27:05.267Z] GET /ingame-assets/images/Flag_of_Ecuador_c.png
+[2026-05-29T10:27:05.269Z] GET /ingame-assets/images/Flag_of_Paraguay_c.png
+[2026-05-29T10:27:05.272Z] GET /ingame-assets/images/text_group_E.png
+[2026-05-29T10:27:05.273Z] GET /ingame-assets/images/Flag_of_Sweden_c.png
+[2026-05-29T10:27:05.273Z] GET /ingame-assets/images/Flag_of_Switzerland_c.png
+[2026-05-29T10:27:05.275Z] GET /ingame-assets/images/Flag_of_Norway_c.png
+[2026-05-29T10:27:05.276Z] GET /ingame-assets/images/Flag_of_Austria_c.png
+[2026-05-29T10:27:05.278Z] GET /ingame-assets/images/text_group_F.png
+[2026-05-29T10:27:05.283Z] GET /ingame-assets/images/top_award_lv3.png
+[2026-05-29T10:27:05.283Z] GET /ingame-assets/images/Flag_of_Saudi_Arabia_c.png
+[2026-05-29T10:27:05.283Z] GET /ingame-assets/images/Flag_of_Tunisia_c.png
+[2026-05-29T10:27:05.285Z] GET /ingame-assets/images/Flag_of_Morocco_c.png
+[2026-05-29T10:27:05.290Z] GET /ingame-assets/images/Flag_of_Senegal_c.png
+[2026-05-29T10:27:05.290Z] GET /ingame-assets/images/text_group_G.png
+[2026-05-29T10:27:05.290Z] GET /ingame-assets/images/Flag_of_Ghana_c.png
+[2026-05-29T10:27:05.295Z] GET /ingame-assets/images/Flag_of_South_Africa_c.png
+[2026-05-29T10:27:05.295Z] GET /ingame-assets/images/Flag_of_Canada_c.png
+[2026-05-29T10:27:05.298Z] GET /ingame-assets/images/Flag_of_the_United_States_c.png
+[2026-05-29T10:27:05.305Z] GET /ingame-assets/images/betpage/bet2_title1.png
+[2026-05-29T10:27:05.305Z] GET /ingame-assets/images/top_award_lv4.png
+[2026-05-29T10:27:05.305Z] GET /ingame-assets/images/Flag_of_Algeria_c.png
+[2026-05-29T10:27:05.306Z] GET /ingame-assets/images/top_award_lv5.png
+[2026-05-29T10:27:05.307Z] GET /ingame-assets/images/top_award_lv6.png
+[2026-05-29T10:27:05.323Z] GET /ingame-assets/images/betpage/Flag_of_Brazil.png
+[2026-05-29T10:27:05.328Z] GET /ingame-assets/images/betpage/Flag_of_Spain.png
+[2026-05-29T10:27:05.329Z] GET /ingame-assets/images/betpage/Flag_of_England.png
+[2026-05-29T10:27:05.339Z] GET /ingame-assets/images/betpage/Flag_of_France.png
+[2026-05-29T10:27:05.342Z] GET /ingame-assets/images/betpage/Flag_of_Iran.png
+[2026-05-29T10:27:05.443Z] GET /ingame-assets/images/ingamebg.jpg
+[2026-05-29T10:27:05.444Z] GET /ingame-assets/images/switch_group_base.png
+[2026-05-29T10:27:05.445Z] GET /ingame-assets/images/info_have.png
+[2026-05-29T10:27:05.445Z] GET /ingame-assets/images/info_time.png
+[2026-05-29T10:27:05.445Z] GET /ingame-assets/images/btn_bet.png
+[2026-05-29T10:27:05.446Z] GET /ingame-assets/images/btn_question.png
+[2026-05-29T10:27:05.452Z] GET /ingame-assets/images/btn_record.png
+[2026-05-29T10:27:05.452Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:27:05.455Z] GET /ingame-assets/images/betpage/bet2_bg.png
+[2026-05-29T10:27:05.455Z] GET /ingame-assets/images/num/pop_day_6.png
+[2026-05-29T10:27:05.456Z] GET /ingame-assets/images/num/pop_day_slash.png
+[2026-05-29T10:27:05.456Z] GET /ingame-assets/images/num/pop_day_5.png
+[2026-05-29T10:27:05.460Z] GET /ingame-assets/images/betpage/betbox2_bg.png
+[2026-05-29T10:27:05.463Z] GET /ingame-assets/images/betpage/bet_base.png
+[2026-05-29T10:27:05.463Z] GET /ingame-assets/images/betpage/icon_reduce.png
+[2026-05-29T10:27:05.464Z] GET /ingame-assets/images/betpage/icon_add.png
+[2026-05-29T10:27:05.465Z] GET /ingame-assets/images/betpage/betbox2_bg_active.png
+[2026-05-29T10:27:05.466Z] GET /ingame-assets/images/betpage/btn_reselect.png
+[2026-05-29T10:27:05.466Z] GET /ingame-assets/images/betpage/btn_betall.png
+[2026-05-29T10:27:05.741Z] GET /ingame-assets/images/ingamebg.jpg
+[2026-05-29T10:27:05.741Z] GET /ingame-assets/images/switch_group_base.png
+[2026-05-29T10:27:05.741Z] GET /ingame-assets/images/arrow_down.png
+[2026-05-29T10:27:05.742Z] GET /ingame-assets/images/info_have.png
+[2026-05-29T10:27:05.743Z] GET /ingame-assets/images/betbox_bg.png
+[2026-05-29T10:27:05.744Z] GET /ingame-assets/images/info_time.png
+[2026-05-29T10:27:05.745Z] GET /ingame-assets/images/VS.png
+[2026-05-29T10:27:05.747Z] GET /ingame-assets/images/betbox_bg_active.png
+[2026-05-29T10:27:05.747Z] GET /ingame-assets/images/win.png
+[2026-05-29T10:27:05.748Z] GET /ingame-assets/images/icon_winlable.png
+[2026-05-29T10:27:05.749Z] GET /ingame-assets/images/btn_bet.png
+[2026-05-29T10:27:05.751Z] GET /ingame-assets/images/btn_arrow_next.png
+[2026-05-29T10:27:05.752Z] GET /ingame-assets/images/btn_arrow_prev.png
+[2026-05-29T10:27:05.753Z] GET /ingame-assets/images/btn_question.png
+[2026-05-29T10:27:05.754Z] GET /ingame-assets/images/btn_record.png
+[2026-05-29T10:27:05.755Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:27:05.761Z] GET /ingame-assets/images/betpage/bet2_bg.png
+[2026-05-29T10:27:05.761Z] GET /ingame-assets/images/betpage/pop_even.png
+[2026-05-29T10:27:05.762Z] GET /ingame-assets/images/num/pop_day_6.png
+[2026-05-29T10:27:05.762Z] GET /ingame-assets/images/num/pop_day_slash.png
+[2026-05-29T10:27:05.762Z] GET /ingame-assets/images/num/pop_day_5.png
+[2026-05-29T10:27:05.762Z] GET /ingame-assets/images/betpage/betbox2_bg_active.png
+[2026-05-29T10:27:05.766Z] GET /ingame-assets/images/betpage/bet_base.png
+[2026-05-29T10:27:05.767Z] GET /ingame-assets/images/betpage/icon_reduce.png
+[2026-05-29T10:27:05.767Z] GET /ingame-assets/images/betpage/icon_add.png
+[2026-05-29T10:27:05.768Z] GET /ingame-assets/images/betpage/betbox2_bg.png
+[2026-05-29T10:27:05.768Z] GET /ingame-assets/images/betpage/btn_reselect.png
+[2026-05-29T10:27:05.768Z] GET /ingame-assets/images/betpage/btn_betall.png
+[2026-05-29T10:29:17.553Z] GET /
+[2026-05-29T10:29:17.578Z] GET /css/style.css
+[2026-05-29T10:29:17.583Z] GET /js/utils.js
+[2026-05-29T10:29:17.583Z] GET /js/figma-api.js
+[2026-05-29T10:29:17.586Z] GET /js/node-parser.js
+[2026-05-29T10:29:17.591Z] GET /js/code-generator.js
+[2026-05-29T10:29:17.591Z] GET /js/visual-editor.js
+[2026-05-29T10:29:17.592Z] GET /js/prompt-builder.js
+[2026-05-29T10:29:17.592Z] GET /js/app.js
+[2026-05-29T10:29:18.163Z] GET /favicon.ico
+[2026-05-29T10:29:22.287Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:29:27.047Z] GET /api/figma/image-proxy?url=https%3A%2F%2Fs3-alpha.figma.com%2Fthumbnails%2F388f0e2b-edb4-4507-901d-069a623c21ba%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAQ4GOSFWC5PYDOGN2%252F20260528%252Fus-west-2%252Fs3%252Faws4_request%26X-Amz-Date%3D20260528T000000Z%26X-Amz-Expires%3D604800%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D6b159e6d896507bd23b1eed989de64eeec53852e19f86d453e6be4b51c3774ef
+[2026-05-29T10:29:27.068Z] GET /ingame-assets/style/css/master_v2.css
+[2026-05-29T10:29:27.074Z] GET /ingame-assets/style/css/style.css
+[2026-05-29T10:29:27.075Z] GET /ingame-assets/style/css/game_view.css
+[2026-05-29T10:29:27.076Z] GET /ingame-assets/images/betpage/Flag_of_Brazil.png
+[2026-05-29T10:29:27.078Z] GET /ingame-assets/images/betpage/Flag_of_Spain.png
+[2026-05-29T10:29:27.095Z] GET /css/normalize.css
+[2026-05-29T10:29:27.098Z] GET /css/animate.css/animate.min.css
+[2026-05-29T10:29:27.230Z] GET /Action/11_Star31/20260527MU/ingame/images/btn_close.png
+[2026-05-29T10:29:27.243Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:30:00.825Z] GET /
+[2026-05-29T10:30:00.910Z] GET /css/style.css
+[2026-05-29T10:30:00.920Z] GET /js/utils.js
+[2026-05-29T10:30:00.920Z] GET /js/figma-api.js
+[2026-05-29T10:30:00.920Z] GET /js/node-parser.js
+[2026-05-29T10:30:00.921Z] GET /js/code-generator.js
+[2026-05-29T10:30:00.921Z] GET /js/visual-editor.js
+[2026-05-29T10:30:00.948Z] GET /js/prompt-builder.js
+[2026-05-29T10:30:00.961Z] GET /js/app.js
+[2026-05-29T10:30:01.631Z] GET /favicon.ico
+[2026-05-29T10:30:05.811Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:30:10.805Z] GET /api/figma/image-proxy?url=https%3A%2F%2Fs3-alpha.figma.com%2Fthumbnails%2F388f0e2b-edb4-4507-901d-069a623c21ba%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAQ4GOSFWC5PYDOGN2%252F20260528%252Fus-west-2%252Fs3%252Faws4_request%26X-Amz-Date%3D20260528T000000Z%26X-Amz-Expires%3D604800%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Signature%3D6b159e6d896507bd23b1eed989de64eeec53852e19f86d453e6be4b51c3774ef
+[2026-05-29T10:30:10.839Z] GET /ingame-assets/style/css/master_v2.css
+[2026-05-29T10:30:10.845Z] GET /ingame-assets/images/betpage/Flag_of_Spain.png
+[2026-05-29T10:30:10.846Z] GET /ingame-assets/images/betpage/Flag_of_Brazil.png
+[2026-05-29T10:30:10.847Z] GET /ingame-assets/style/css/game_view.css
+[2026-05-29T10:30:10.848Z] GET /ingame-assets/style/css/style.css
+[2026-05-29T10:30:10.863Z] GET /css/normalize.css
+[2026-05-29T10:30:10.864Z] GET /css/animate.css/animate.min.css
+[2026-05-29T10:30:10.990Z] GET /Action/11_Star31/20260527MU/ingame/images/btn_close.png
+[2026-05-29T10:30:11.003Z] GET /ingame-assets/images/btn_close.png
+[2026-05-29T10:32:27.162Z] GET /
+[2026-05-29T10:32:27.197Z] GET /css/style.css
+[2026-05-29T10:32:27.221Z] GET /js/utils.js
+[2026-05-29T10:32:27.225Z] GET /js/figma-api.js
+[2026-05-29T10:32:27.226Z] GET /js/node-parser.js
+[2026-05-29T10:32:27.226Z] GET /js/code-generator.js
+[2026-05-29T10:32:27.229Z] GET /js/visual-editor.js
+[2026-05-29T10:32:27.229Z] GET /js/prompt-builder.js
+[2026-05-29T10:32:27.230Z] GET /js/app.js
+[2026-05-29T10:32:27.845Z] GET /favicon.ico
+[2026-05-29T10:32:31.205Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:32:46.115Z] GET /
+[2026-05-29T10:32:46.249Z] GET /css/style.css
+[2026-05-29T10:32:46.273Z] GET /js/utils.js
+[2026-05-29T10:32:46.278Z] GET /js/figma-api.js
+[2026-05-29T10:32:46.278Z] GET /js/node-parser.js
+[2026-05-29T10:32:46.279Z] GET /js/code-generator.js
+[2026-05-29T10:32:46.279Z] GET /js/visual-editor.js
+[2026-05-29T10:32:46.280Z] GET /js/prompt-builder.js
+[2026-05-29T10:32:46.283Z] GET /js/app.js
+[2026-05-29T10:32:46.950Z] GET /favicon.ico
+[2026-05-29T10:32:50.344Z] GET /api/figma/file/tEJWXLBb2i2rNZ56HKJ26w?depth=6
+[2026-05-29T10:33:13.211Z] GET /
+[2026-05-29T10:33:13.296Z] GET /css/style.css
+[2026-05-29T10:33:13.338Z] GET /js/utils.js
+[2026-05-29T10:33:13.339Z] GET /js/figma-api.js
+[2026-05-29T10:33:13.351Z] GET /js/node-parser.js
+[2026-05-29T10:33:13.353Z] GET /js/code-generator.js
+[2026-05-29T10:33:13.361Z] GET /js/visual-editor.js
+[2026-05-29T10:33:13.361Z] GET /js/prompt-builder.js
+[2026-05-29T10:33:13.361Z] GET /js/app.js
+[2026-05-29T10:33:14.071Z] GET /favicon.ico
+[2026-05-29T10:33:16.695Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:33:55.579Z] GET /
+[2026-05-29T10:33:55.618Z] GET /css/style.css
+[2026-05-29T10:33:55.624Z] GET /js/utils.js
+[2026-05-29T10:33:55.627Z] GET /js/code-generator.js
+[2026-05-29T10:33:55.627Z] GET /js/node-parser.js
+[2026-05-29T10:33:55.627Z] GET /js/figma-api.js
+[2026-05-29T10:33:55.628Z] GET /js/visual-editor.js
+[2026-05-29T10:33:55.631Z] GET /js/prompt-builder.js
+[2026-05-29T10:33:55.632Z] GET /js/app.js
+[2026-05-29T10:33:56.494Z] GET /favicon.ico
+[2026-05-29T10:33:59.207Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:34:10.637Z] GET /
+[2026-05-29T10:34:10.665Z] GET /css/style.css
+[2026-05-29T10:34:10.680Z] GET /js/utils.js
+[2026-05-29T10:34:10.684Z] GET /js/figma-api.js
+[2026-05-29T10:34:10.688Z] GET /js/node-parser.js
+[2026-05-29T10:34:10.694Z] GET /js/code-generator.js
+[2026-05-29T10:34:10.701Z] GET /js/visual-editor.js
+[2026-05-29T10:34:10.703Z] GET /js/prompt-builder.js
+[2026-05-29T10:34:10.707Z] GET /js/app.js
+[2026-05-29T10:34:11.465Z] GET /favicon.ico
+[2026-05-29T10:34:14.231Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:34:25.970Z] GET /
+[2026-05-29T10:34:26.137Z] GET /css/style.css
+[2026-05-29T10:34:26.204Z] GET /js/utils.js
+[2026-05-29T10:34:26.225Z] GET /js/figma-api.js
+[2026-05-29T10:34:26.226Z] GET /js/node-parser.js
+[2026-05-29T10:34:26.226Z] GET /js/code-generator.js
+[2026-05-29T10:34:26.227Z] GET /js/visual-editor.js
+[2026-05-29T10:34:26.227Z] GET /js/prompt-builder.js
+[2026-05-29T10:34:26.243Z] GET /js/app.js
+[2026-05-29T10:34:26.898Z] GET /favicon.ico
+[2026-05-29T10:34:29.487Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:35:09.705Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:35:45.900Z] GET /
+[2026-05-29T10:35:45.934Z] GET /css/style.css
+[2026-05-29T10:35:45.970Z] GET /js/utils.js
+[2026-05-29T10:35:45.970Z] GET /js/figma-api.js
+[2026-05-29T10:35:45.970Z] GET /js/node-parser.js
+[2026-05-29T10:35:45.970Z] GET /js/code-generator.js
+[2026-05-29T10:35:45.970Z] GET /js/visual-editor.js
+[2026-05-29T10:35:45.973Z] GET /js/prompt-builder.js
+[2026-05-29T10:35:45.982Z] GET /js/app.js
+[2026-05-29T10:35:47.417Z] GET /favicon.ico
+[2026-05-29T10:35:49.962Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:36:03.391Z] GET /
+[2026-05-29T10:36:03.444Z] GET /css/style.css
+[2026-05-29T10:36:03.448Z] GET /js/utils.js
+[2026-05-29T10:36:03.449Z] GET /js/figma-api.js
+[2026-05-29T10:36:03.452Z] GET /js/node-parser.js
+[2026-05-29T10:36:03.452Z] GET /js/code-generator.js
+[2026-05-29T10:36:03.453Z] GET /js/visual-editor.js
+[2026-05-29T10:36:03.453Z] GET /js/prompt-builder.js
+[2026-05-29T10:36:03.454Z] GET /js/app.js
+[2026-05-29T10:36:04.251Z] GET /favicon.ico
+[2026-05-29T10:36:06.777Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:36:18.332Z] GET /
+[2026-05-29T10:36:18.362Z] GET /css/style.css
+[2026-05-29T10:36:18.369Z] GET /js/utils.js
+[2026-05-29T10:36:18.370Z] GET /js/figma-api.js
+[2026-05-29T10:36:18.370Z] GET /js/node-parser.js
+[2026-05-29T10:36:18.371Z] GET /js/code-generator.js
+[2026-05-29T10:36:18.375Z] GET /js/visual-editor.js
+[2026-05-29T10:36:18.377Z] GET /js/prompt-builder.js
+[2026-05-29T10:36:18.384Z] GET /js/app.js
+[2026-05-29T10:36:19.139Z] GET /favicon.ico
+[2026-05-29T10:36:21.731Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:36:50.951Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.
+[2026-05-29T10:36:55.339Z] GET /api/figma/auto-convert?fileKey=tEJWXLBb2i2rNZ56HKJ26w&nodeId=0-1
+[Auto-Convert] Checking node 0-1...
+[DiskCache] HIT: auto-check:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1...
+[Auto-Convert] Target node type: CANVAS, name: "Page 1", children: 21
+[Auto-Convert] Node "Page 1" is a complex frame (21 children). Fetching at full depth...
+[DiskCache] HIT: auto-node:https://api.figma.com/v1/files/tEJWXLBb2i2rNZ56HKJ26w/nodes?ids=0%3A1&...
+[Auto-Convert] scope=node, targetNode found: true, exportIds: 67
+[Auto-Convert] Total unique export IDs: 67
+[Auto-Convert] First 5 IDs: 0:1, 1:2, 1:4, 1:5, 1:6
+[Auto-Convert] Exporting 67 images via render API...
+[Auto-Convert] Image batch 0: calling render API for 50 nodes...
+[Auto-Convert] Image batch 0 returned status 403
+[Auto-Convert] Image batch 50: calling render API for 17 nodes...
+[Auto-Convert] Image batch 50 returned status 403
+[Auto-Convert] Done. scope=node, 0 images exported.

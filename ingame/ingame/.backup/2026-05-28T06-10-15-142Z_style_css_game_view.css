@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* ══════════════════════════════════════════════════ */
+/* game_view.css — WIN Desktop Standard (公版)       */
+/* Default: 1280×720, responsive to custom sizes     */
+/* ══════════════════════════════════════════════════ */
+
+html,
+body {
+  font-family: "Helvetica Neue", "微軟正黑體", "Helvetica", "Arial", "PingFangTC-Light", "STHeitiTC-Light", "Microsoft JhengHei", sans-serif;
+  -webkit-text-size-adjust: none;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#ingame__view {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
