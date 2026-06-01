@@ -1893,12 +1893,14 @@ class App {
   }
 
   async _ensureBackup() {
-    if (this._backupCreated || !this.state.isLocalMode || !this.state.activeFilePath) return;
+    // Allow backup in both Local and Figma modes
+    const filePath = this.state.activeFilePath || (this.state.isLocalMode ? null : 'index.aspx');
+    if (this._backupCreated || !filePath) return;
     try {
       await fetch('/api/local/backup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: this.state.activeFilePath })
+        body: JSON.stringify({ path: filePath })
       });
       this._backupCreated = true;
     } catch (err) {
@@ -1907,7 +1909,10 @@ class App {
   }
 
   async _saveToServer() {
-    if (!this.state.isLocalMode || !this.state.activeFilePath) return;
+    // Allow save in both Local and Figma modes; default path for Figma mode
+    const filePath = this.state.activeFilePath || (this.state.isLocalMode ? null : 'index.aspx');
+    if (!filePath) return;
+    if (!this.state.activeFilePath) this.state.activeFilePath = filePath;
     await this._ensureBackup();
     this._setSaveStatus('saving');
     try {
@@ -2693,7 +2698,22 @@ class App {
             }
           }
         } else {
-          _stats.missingUrl.push(node.id || '(no id)');
+          // Fallback: if node name looks like a .png file, try local ingame-assets path
+          const nodeName = (node.name || '').trim();
+          if (nodeName.match(/\.(png|jpg|jpeg|gif|svg)$/i)) {
+            const localUrl = `/ingame-assets/images/${nodeName}`;
+            node.styles = node.styles || {};
+            node.styles['background-image'] = `url('${localUrl}')`;
+            node.styles['background-size'] = node.styles['background-size'] || 'contain';
+            node.styles['background-position'] = node.styles['background-position'] || 'center';
+            node.styles['background-repeat'] = 'no-repeat';
+            node.imageUrl = localUrl;
+            node.hasImage = true;
+            _stats.matched++;
+            console.log(`[_applyImageUrls] Fallback local image for "${nodeName}": ${localUrl}`);
+          } else {
+            _stats.missingUrl.push(node.id || '(no id)');
+          }
         }
       }
       if (node.children && node.children.length > 0) {

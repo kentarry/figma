@@ -696,8 +696,11 @@ $(document).ready(function() {
     
     // ── Inject +/- buttons onto betting card items ──
     this._injectBetButtons(doc);
+
+    // ── Inject Swiper navigation arrows if missing (Figma mode) ──
+    this._injectSwiperNavigation(doc);
     
-    console.log('[VisualEditor] Fixed overlay pointer-events, attached direct handlers, injected bet buttons');
+    console.log('[VisualEditor] Fixed overlay pointer-events, attached direct handlers, injected bet buttons, injected swiper nav');
   }
 
   /** Attach direct click handlers to interactive elements so they work regardless of overlays */
@@ -896,6 +899,88 @@ $(document).ready(function() {
     doc.querySelectorAll('.injected-bet-btn, .injected-overlay-btn, .injected-minus-cover, .injected-minus-bar').forEach(el => el.remove());
   }
 
+  /** Inject Swiper navigation arrow buttons if they're missing in Figma mode */
+  _injectSwiperNavigation(doc) {
+    if (!doc || !this.isFigmaMode) return;
+
+    // Check if main bet swiper container exists
+    const swiperContainer = doc.querySelector('.gamemain-bet') || doc.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      // Try Figma-generated elements that look like a swiper area
+      const mainScreen = doc.querySelector('[data-figma-name*="主畫面"]');
+      if (!mainScreen) return;
+    }
+
+    // Check for existing navigation elements
+    const existingNext = doc.querySelector('#mainBetNext, .swiper-button-next');
+    const existingPrev = doc.querySelector('#mainBetPrev, .swiper-button-prev');
+    
+    // Also check for Figma-rendered arrow image elements
+    const arrowElements = Array.from(doc.querySelectorAll('[data-figma-name]')).filter(el => {
+      const name = (el.getAttribute('data-figma-name') || '').toLowerCase();
+      return name.includes('btn_arrow') || name.includes('arrow') || name.includes('左右按鈕');
+    });
+
+    // Make sure arrow elements are visible (they might be hidden due to 403 image errors)
+    arrowElements.forEach(el => {
+      if (el.style.display === 'none') {
+        el.style.display = '';
+      }
+      // Apply local fallback image if background-image is missing or broken
+      const computed = doc.defaultView?.getComputedStyle(el);
+      const bgImg = computed?.backgroundImage || el.style.backgroundImage || '';
+      const name = (el.getAttribute('data-figma-name') || '').toLowerCase();
+      if (!bgImg || bgImg === 'none' || bgImg.includes('undefined')) {
+        if (name.includes('next') || name.includes('right')) {
+          el.style.backgroundImage = "url('/ingame-assets/images/btn_arrow_next.png')";
+          el.style.backgroundSize = 'contain';
+          el.style.backgroundRepeat = 'no-repeat';
+          el.style.backgroundPosition = 'center';
+        } else if (name.includes('prev') || name.includes('left')) {
+          el.style.backgroundImage = "url('/ingame-assets/images/btn_arrow_prev.png')";
+          el.style.backgroundSize = 'contain';
+          el.style.backgroundRepeat = 'no-repeat';
+          el.style.backgroundPosition = 'center';
+        }
+      }
+      // Ensure they're clickable
+      el.style.pointerEvents = 'auto';
+      el.style.cursor = 'pointer';
+      el.style.zIndex = '50';
+    });
+
+    // If no navigation exists at all, inject Swiper nav buttons
+    if (!existingNext && !existingPrev && arrowElements.length === 0) {
+      const container = swiperContainer || doc.querySelector('[data-figma-name*="主畫面"]');
+      if (!container) return;
+
+      const navNext = doc.createElement('div');
+      navNext.id = 'mainBetNext';
+      navNext.className = 'swiper-button-next injected-nav';
+      navNext.style.cssText = `
+        position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+        width: 40px; height: 80px; z-index: 100; cursor: pointer; pointer-events: auto;
+        background: url('/ingame-assets/images/btn_arrow_next.png') center/contain no-repeat;
+      `;
+
+      const navPrev = doc.createElement('div');
+      navPrev.id = 'mainBetPrev';
+      navPrev.className = 'swiper-button-prev injected-nav';
+      navPrev.style.cssText = `
+        position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+        width: 40px; height: 80px; z-index: 100; cursor: pointer; pointer-events: auto;
+        background: url('/ingame-assets/images/btn_arrow_prev.png') center/contain no-repeat;
+      `;
+
+      container.style.position = container.style.position || 'relative';
+      container.appendChild(navNext);
+      container.appendChild(navPrev);
+      console.log('[VisualEditor] Injected Swiper navigation arrows');
+    }
+
+    console.log('[VisualEditor] Swiper navigation check complete, arrow elements found:', arrowElements.length);
+  }
+
   _setupInteractions() {
     const iframeDoc = this._getDoc();
     if (!iframeDoc) return;
@@ -1052,9 +1137,26 @@ $(document).ready(function() {
       // Find the deepest interactive element among all elements at the click point
       let deepInteractive = null;
       let deepInteractiveType = null;
+
+      // Determine the main screen element to filter out its children when on a popup
+      const _currentScreenForFilter = this.currentScreen || '';
+      const _isOnPopupScreen = _currentScreenForFilter.includes('投注') ||
+                               _currentScreenForFilter.includes('betpage') ||
+                               _currentScreenForFilter === this.resolvedScreenNames.bet1 ||
+                               _currentScreenForFilter === this.resolvedScreenNames.bet2;
+      let _mainScreenEl = null;
+      if (_isOnPopupScreen && iframeDoc) {
+        _mainScreenEl = iframeDoc.querySelector('[data-figma-name*="主畫面"]');
+      }
+
       for (const el of _allElementsAtPoint) {
         if (el === iframeDoc.body || el === iframeDoc.documentElement) continue;
         if (!isElementVisible(el)) continue; // Skip hidden elements
+
+        // When on a popup screen (betting), skip elements that belong to the main screen DOM tree
+        if (_isOnPopupScreen && _mainScreenEl && _mainScreenEl.contains(el) && !el.closest('[data-figma-name*="投注"]')) {
+          continue;
+        }
         const fname = (el.getAttribute('data-figma-name') || '').toLowerCase();
         const className = typeof el.className === 'string' ? el.className.toLowerCase() : '';
         const id = (el.id || '').toLowerCase();
@@ -1284,15 +1386,23 @@ $(document).ready(function() {
 
       // ── Handle 說明/規則/查看結果 button (figma-name + text + position, any screen) ──
       {
+        // When on betting popup, skip if clicked element belongs to main screen subtree (click-through prevention)
+        const _curScreen = this.currentScreen || '';
+        const _onBetPopup = _curScreen.includes('投注') || _curScreen.includes('betpage') ||
+                            _curScreen === this.resolvedScreenNames.bet1 || _curScreen === this.resolvedScreenNames.bet2;
+        const _mainEl = _onBetPopup ? iframeDoc.querySelector('[data-figma-name*="主畫面"]') : null;
+        const _isFromMainScreen = _mainEl && _mainEl.contains(e.target) && !e.target.closest('[data-figma-name*="投注"]');
+
         const info = _collectAncestorInfo(e.target, 8);
         const chain = info.chain;
 
         // 說明/規則 button (includes 注意事項 from Figma naming)
-        if (chain.includes('說明') || chain.includes('規則') || chain.includes('question') ||
+        if (!_isFromMainScreen &&
+            (chain.includes('說明') || chain.includes('規則') || chain.includes('question') ||
             chain.includes('btn_question') || chain.includes('btn__question') || chain.includes('btn-question') || chain.includes('注意事項') ||
             chain.includes('?') || chain.includes('❓') ||
             info.textChain.includes('?') || info.textChain.includes('❓') ||
-            info.textChain.includes('說明') || info.textChain.includes('規則')) {
+            info.textChain.includes('說明') || info.textChain.includes('規則'))) {
           e.preventDefault();
           e.stopPropagation();
           console.log('[VisualEditor] 說明/注意事項 button clicked, showing popup');
@@ -1301,8 +1411,9 @@ $(document).ready(function() {
         }
 
         // 查看結果 button
-        if (chain.includes('結果') || chain.includes('record') || chain.includes('btn_result') || chain.includes('btn__result') || chain.includes('btn_record') || chain.includes('btn__record') ||
-            info.textChain.includes('結果') || info.textChain.includes('查看')) {
+        if (!_isFromMainScreen &&
+            (chain.includes('結果') || chain.includes('record') || chain.includes('btn_result') || chain.includes('btn__result') || chain.includes('btn_record') || chain.includes('btn__record') ||
+            info.textChain.includes('結果') || info.textChain.includes('查看'))) {
           e.preventDefault();
           e.stopPropagation();
           console.log('[VisualEditor] 查看結果 button clicked, showing popup');
