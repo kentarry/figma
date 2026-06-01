@@ -1,4 +1,25 @@
 export class VisualEditor {
+  static CONFIG = {
+    overlayNames: ['亮', 'win', '群組 56', '左右按鈕', 'body-bg', 'BG', '群組 44', '矩形 3', '總投組數', '總投注數'],
+    interactiveNames: [
+      '注意事項', '說明', '規則', 'btn_question',
+      'btn_result', '查看結果',
+      'btn_ok', '投注', '押注', 'betbtn',
+      'btn_betall', 'btn_reselect', 'betall', 'reselect',
+      'btn_close', 'close',
+      'switch', 'top_l', '切分組', '賽季', 'dropdown',
+      '下方__按鈕', '下方按鈕', '+'
+    ],
+    buttons: {
+      rules: ['注意事項', '活動說明', '規則說明', 'btn_question', 'btn__question', 'btn-question', 'rule', '?', '❓'],
+      bet: ['投注', '押注', 'btn_ok', 'betbtn'],
+      confirm: ['確定', '確認', 'btn_betall', 'betall'],
+      clear: ['重新選擇', '重選', 'btn_reselect', 'reselect'],
+      close: ['btn_close', 'close', '關閉', 'btn_back', 'btn-back'],
+      record: ['查看結果', '歷史紀錄', 'btn_result', 'btn__record', 'record']
+    }
+  };
+
   constructor(container) {
     this.container = container;
     this.iframe = document.getElementById('preview-iframe');
@@ -36,6 +57,10 @@ export class VisualEditor {
 
     // Image error tracking
     this._imageErrors = [];
+    
+    // Interactions state
+    this._interactionsSetup = false;
+    this.config = JSON.parse(JSON.stringify(VisualEditor.CONFIG));
   }
 
   loadCode(html, css) {
@@ -488,6 +513,7 @@ $(document).ready(function() {
 </html>`;
 
     this.iframe.onload = () => {
+      this._interactionsSetup = false;
       this._tagElements();
       this._hideImagePlaceholders();
       this._resolveFigmaScreenNames();
@@ -646,18 +672,10 @@ $(document).ready(function() {
     if (this.isFigmaMode === false) return; // Skip in local HTML mode
     
     // Decorative/overlay element names that should not intercept clicks
-    const OVERLAY_NAMES = ['亮', 'win', '群組 56', '左右按鈕', 'body-bg', 'BG', '群組 44', '矩形 3', '總投組數', '總投注數'];
+    const overlayNames = this.config.overlayNames || [];
     
     // Interactive element names that MUST receive clicks
-    const INTERACTIVE_NAMES = [
-      '注意事項', '說明', '規則', 'btn_question',
-      'btn_result', '查看結果',
-      'btn_ok', '投注', '押注', 'betbtn',
-      'btn_betall', 'btn_reselect', 'betall', 'reselect',
-      'btn_close', 'close',
-      'switch', 'top_l', '切分組', '賽季', 'dropdown',
-      '下方__按鈕', '下方按鈕', '+'
-    ];
+    const interactiveNames = this.config.interactiveNames || [];
     
     const allFigmaEls = doc.querySelectorAll('[data-figma-name]');
     allFigmaEls.forEach(el => {
@@ -675,12 +693,12 @@ $(document).ready(function() {
       }
 
       // Check if this is a decorative overlay
-      if (OVERLAY_NAMES.some(n => fname === n || fnameLower === n.toLowerCase())) {
+      if (overlayNames.some(n => fname === n || fnameLower === n.toLowerCase())) {
         el.style.pointerEvents = 'none';
       }
       
       // Ensure interactive elements can receive clicks
-      if (INTERACTIVE_NAMES.some(n => fnameLower.includes(n.toLowerCase()))) {
+      if (interactiveNames.some(n => fnameLower.includes(n.toLowerCase()))) {
         el.style.pointerEvents = 'auto';
         el.style.cursor = 'pointer';
         const currentZ = parseInt(el.style.zIndex) || 0;
@@ -727,18 +745,8 @@ $(document).ready(function() {
     };
     
     // ── 說明 / 注意事項 button ──
-    const ruleButtons = [
-      ...findByName('注意事項'),
-      ...findByName('活動說明'),
-      ...findByName('規則說明'),
-      ...findByName('btn_question'),
-      ...findByName('btn__question'),
-      ...findByName('btn-question'),
-      ...findByName('rule'),
-      ...findByName('?'),
-      ...findByName('❓')
-    ];
-    // Deduplicate by element reference
+    const ruleButtons = [];
+    (this.config.buttons.rules || []).forEach(k => ruleButtons.push(...findByName(k)));
     const uniqueRuleButtons = [...new Set(ruleButtons)];
     uniqueRuleButtons.forEach(el => {
       if (el._directHandler) return; // Prevent duplicate
@@ -755,18 +763,10 @@ $(document).ready(function() {
     });
     
     // ── 查看結果 / btn_result button ──
-    const recordButtons = [
-      ...findByName('btn_result'),
-      ...findByName('btn__result'),
-      ...findByName('btn_record'),
-      ...findByName('btn__record'),
-      ...findByName('btn-result'),
-      ...findByName('查看結果'),
-      ...findByName('歷史紀錄'),
-      ...findByName('我的押注'),
-      ...findByName('record')
-    ];
-    recordButtons.forEach(el => {
+    const recordButtons = [];
+    (this.config.buttons.record || []).forEach(k => recordButtons.push(...findByName(k)));
+    const uniqueRecordButtons = [...new Set(recordButtons)];
+    uniqueRecordButtons.forEach(el => {
       if (el._directHandler) return;
       el._directHandler = true;
       el.style.pointerEvents = 'auto';
@@ -781,14 +781,10 @@ $(document).ready(function() {
     });
     
     // ── btn_close button ──
-    const closeButtons = [
-      ...findByName('btn_close'),
-      ...findByName('btn__close'),
-      ...findByName('btn-close'),
-      ...findByName('close'),
-      ...findByName('關閉')
-    ];
-    closeButtons.forEach(el => {
+    const closeButtons = [];
+    (this.config.buttons.close || []).forEach(k => closeButtons.push(...findByName(k)));
+    const uniqueCloseButtons = [...new Set(closeButtons)];
+    uniqueCloseButtons.forEach(el => {
       if (el._directHandler) return;
       el._directHandler = true;
       el.style.pointerEvents = 'auto';
@@ -806,19 +802,10 @@ $(document).ready(function() {
     });
     
     // ── btn_betall / btn_betSure (確定押注) button ──
-    const confirmButtons = [
-      ...findByName('btn_betall'),
-      ...findByName('btn__betall'),
-      ...findByName('btn-betall'),
-      ...findByName('btn_betsure'),
-      ...findByName('btn_confirm'),
-      ...findByName('btn__confirm'),
-      ...findByName('btn-confirm'),
-      ...findByName('確定'),
-      ...findByName('確認'),
-      ...findByName('betall')
-    ];
-    confirmButtons.forEach(el => {
+    const confirmButtons = [];
+    (this.config.buttons.confirm || []).forEach(k => confirmButtons.push(...findByName(k)));
+    const uniqueConfirmButtons = [...new Set(confirmButtons)];
+    uniqueConfirmButtons.forEach(el => {
       if (el._directHandler) return;
       el._directHandler = true;
       el.style.pointerEvents = 'auto';
@@ -833,16 +820,10 @@ $(document).ready(function() {
     });
     
     // ── btn_reselect / btn_betClear (重新選擇) button ──  
-    const resetButtons = [
-      ...findByName('btn_reselect'),
-      ...findByName('btn__reselect'),
-      ...findByName('btn-reselect'),
-      ...findByName('btn_betclear'),
-      ...findByName('重新選擇'),
-      ...findByName('重選'),
-      ...findByName('reselect')
-    ];
-    resetButtons.forEach(el => {
+    const resetButtons = [];
+    (this.config.buttons.clear || []).forEach(k => resetButtons.push(...findByName(k)));
+    const uniqueResetButtons = [...new Set(resetButtons)];
+    uniqueResetButtons.forEach(el => {
       if (el._directHandler) return;
       el._directHandler = true;
       el.style.pointerEvents = 'auto';
@@ -984,6 +965,8 @@ $(document).ready(function() {
   _setupInteractions() {
     const iframeDoc = this._getDoc();
     if (!iframeDoc) return;
+    if (this._interactionsSetup) return;
+    this._interactionsSetup = true;
 
     // ── Hover highlight ──
     iframeDoc.addEventListener('mouseover', (e) => {
@@ -1288,14 +1271,7 @@ $(document).ready(function() {
           if (!isFromPlusMinus) {
             e.preventDefault();
             e.stopPropagation();
-            const newVal = prompt('請輸入投注數量：', clickedText);
-            if (newVal !== null) {
-              const numStr = newVal.trim();
-              if (/^\d+$/.test(numStr)) {
-                e.target.textContent = numStr;
-                if (this.onContentChange) this.onContentChange();
-              }
-            }
+            this._startInlineEdit(e.target, true, false, '');
             return;
           }
         }
@@ -1430,20 +1406,7 @@ $(document).ready(function() {
         if (isNumericNode || isMyBetNode) {
           e.preventDefault();
           e.stopPropagation();
-          let initialVal = clickedText;
-          if (isMyBetNode) { initialVal = clickedText.match(/\d+/)[0]; }
-          const newVal = prompt('請輸入數量：', initialVal);
-          if (newVal !== null) {
-            const numStr = newVal.trim();
-            if (/^\d+$/.test(numStr)) {
-              if (isNumericNode) {
-                e.target.textContent = numStr;
-              } else {
-                e.target.textContent = clickedText.includes(':') ? `我已投注:${numStr}` : `我已投注 ${numStr}`;
-              }
-              if (this.onContentChange) this.onContentChange();
-            }
-          }
+          this._startInlineEdit(e.target, true, isMyBetNode, clickedText);
           return;
         }
       }
@@ -1923,6 +1886,34 @@ $(document).ready(function() {
 
     // ── Keyboard: arrow nudge, delete ──
     iframeDoc.addEventListener('keydown', (e) => {
+      const keyLower = e.key.toLowerCase();
+      
+      // Ctrl+S: Save
+      if ((e.ctrlKey || e.metaKey) && keyLower === 's') {
+        e.preventDefault();
+        if (this.onSaveShortcut) {
+          this.onSaveShortcut();
+        } else {
+          const saveBtn = window.parent?.document?.getElementById('btn-save-code') || window.parent?.document?.getElementById('btn-save');
+          if (saveBtn) saveBtn.click();
+        }
+        return;
+      }
+      
+      // Ctrl+Z: Undo
+      if ((e.ctrlKey || e.metaKey) && !e.shiftKey && keyLower === 'z') {
+        e.preventDefault();
+        this.undo();
+        return;
+      }
+
+      // Ctrl+Y / Ctrl+Shift+Z: Redo
+      if (((e.ctrlKey || e.metaKey) && keyLower === 'y') || ((e.ctrlKey || e.metaKey) && e.shiftKey && keyLower === 'z')) {
+        e.preventDefault();
+        this.redo();
+        return;
+      }
+
       if (e.key === 'Escape') {
         this._closeLayerPicker();
         return;
@@ -1942,8 +1933,10 @@ $(document).ready(function() {
         case 'ArrowRight': this._nudgeElement(selected, step, 0);  moved = true; break;
         case 'Delete':
         case 'Backspace':
+          this._saveUndoState();
           selected.remove();
           this.selectElement(null);
+          if (this.onContentChange) this.onContentChange();
           break;
       }
 
@@ -2752,6 +2745,7 @@ $(document).ready(function() {
     this._tagElements();
     this._resolveFigmaScreenNames();
     this._setupInteractions();
+    this._fixFigmaOverlays(iframeDoc);
     if (this.onContentChange) this.onContentChange();
     return true;
   }
@@ -2765,6 +2759,7 @@ $(document).ready(function() {
     this._tagElements();
     this._resolveFigmaScreenNames();
     this._setupInteractions();
+    this._fixFigmaOverlays(iframeDoc);
     if (this.onContentChange) this.onContentChange();
     return true;
   }
@@ -3428,5 +3423,82 @@ $(document).ready(function() {
   _getDoc() {
     try { return this.iframe.contentDocument || this.iframe.contentWindow?.document; }
     catch { return null; }
+  }
+
+  _startInlineEdit(el, isNumberOnly = true, isMyBetNode = false, originalFormat = '') {
+    const iframeDoc = this._getDoc();
+    if (!iframeDoc) return;
+    
+    if (el._isEditing) return;
+    el._isEditing = true;
+    
+    let originalText = el.textContent.trim();
+    let initialVal = originalText;
+    if (isMyBetNode) {
+      const match = originalText.match(/\d+/);
+      initialVal = match ? match[0] : '';
+    }
+    
+    const rect = el.getBoundingClientRect();
+    const style = iframeDoc.defaultView.getComputedStyle(el);
+    
+    const input = iframeDoc.createElement('input');
+    input.type = isNumberOnly ? 'number' : 'text';
+    input.value = initialVal;
+    
+    input.style.position = 'absolute';
+    input.style.left = `${rect.left + iframeDoc.documentElement.scrollLeft}px`;
+    input.style.top = `${rect.top + iframeDoc.documentElement.scrollTop}px`;
+    input.style.width = `${Math.max(rect.width + 20, 60)}px`;
+    input.style.height = `${rect.height + 4}px`;
+    input.style.fontFamily = style.fontFamily;
+    input.style.fontSize = style.fontSize;
+    input.style.fontWeight = style.fontWeight;
+    input.style.color = style.color;
+    input.style.textAlign = style.textAlign || 'center';
+    input.style.background = '#ffffff';
+    input.style.border = '2px solid #1a73e8';
+    input.style.borderRadius = '4px';
+    input.style.boxShadow = '0 2px 6px rgba(26,115,232,0.3)';
+    input.style.zIndex = '999999';
+    input.style.outline = 'none';
+    input.style.padding = '0 2px';
+    input.style.margin = '0';
+    
+    const originalOpacity = el.style.opacity;
+    el.style.opacity = '0';
+    
+    iframeDoc.body.appendChild(input);
+    input.focus();
+    input.select();
+    
+    const finishEdit = (save) => {
+      if (el._isEditing) {
+        el._isEditing = false;
+        if (save) {
+          const val = input.value.trim();
+          if (!isNumberOnly || /^\d+$/.test(val)) {
+            this._saveUndoState();
+            if (isMyBetNode) {
+              el.textContent = originalFormat.includes(':') ? `我已投注:${val}` : `我已投注 ${val}`;
+            } else {
+              el.textContent = val;
+            }
+            if (this.onContentChange) this.onContentChange();
+          }
+        }
+        el.style.opacity = originalOpacity;
+        input.remove();
+      }
+    };
+    
+    input.addEventListener('blur', () => finishEdit(true));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        finishEdit(true);
+      } else if (e.key === 'Escape') {
+        finishEdit(false);
+      }
+    });
   }
 }

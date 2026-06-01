@@ -39,6 +39,9 @@ export class NodeParser {
 
     if (figmaNode.type === 'TEXT') {
       node.characters = figmaNode.characters || '';
+      if (figmaNode.characterStyleOverrides && figmaNode.styleOverrideTable) {
+        node.mixedCharacters = this._parseMixedText(figmaNode);
+      }
     }
 
     const hasImageFill = Array.isArray(figmaNode.fills) && figmaNode.fills.some(f => f.type === 'IMAGE');
@@ -136,11 +139,8 @@ export class NodeParser {
         const rgba = figmaColorToRgba(fill.color, fill.opacity);
         layers.push(`linear-gradient(${rgba}, ${rgba})`);
         this._trackColor(rgba);
-      } else if (fill.type === 'GRADIENT_LINEAR' && fill.gradientStops) {
-        const stops = fill.gradientStops
-          .map(s => `${figmaColorToRgba(s.color)} ${Math.round(s.position * 100)}%`)
-          .join(', ');
-        layers.push(`linear-gradient(${stops})`);
+      } else if ((fill.type === 'GRADIENT_LINEAR' || fill.type === 'GRADIENT_RADIAL' || fill.type === 'GRADIENT_ANGULAR' || fill.type === 'GRADIENT_DIAMOND') && fill.gradientStops) {
+        layers.push(this._calculateGradient(fill));
       } else if (fill.type === 'IMAGE') {
         hasImage = true;
       }
@@ -166,11 +166,8 @@ export class NodeParser {
       const rgba = figmaColorToRgba(fill.color, fill.opacity);
       styles['background-color'] = rgba;
       this._trackColor(rgba);
-    } else if (fill.type === 'GRADIENT_LINEAR' && fill.gradientStops) {
-      const stops = fill.gradientStops
-        .map(s => `${figmaColorToRgba(s.color)} ${Math.round(s.position * 100)}%`)
-        .join(', ');
-      styles['background-image'] = `linear-gradient(${stops})`;
+    } else if ((fill.type === 'GRADIENT_LINEAR' || fill.type === 'GRADIENT_RADIAL' || fill.type === 'GRADIENT_ANGULAR' || fill.type === 'GRADIENT_DIAMOND') && fill.gradientStops) {
+      styles['background-image'] = this._calculateGradient(fill);
     } else if (fill.type === 'IMAGE') {
       styles['background-size'] = fill.scaleMode === 'FILL' ? 'cover' : 'contain';
       styles['background-position'] = 'center';
@@ -404,5 +401,87 @@ export class NodeParser {
     this.imageNodes = [];
     this.colors.clear();
     this.fonts.clear();
+  }
+
+  _escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  _calculateGradient(fill) {
+    if (!fill.gradientStops) return '';
+    const stops = fill.gradientStops
+      .map(s => `${figmaColorToRgba(s.color)} ${Math.round(s.position * 100)}%`)
+      .join(', ');
+      
+    if (fill.type === 'GRADIENT_LINEAR') {
+      let angleStr = '';
+      if (fill.gradientHandlePositions && fill.gradientHandlePositions.length >= 2) {
+        const p0 = fill.gradientHandlePositions[0];
+        const p1 = fill.gradientHandlePositions[1];
+        const dx = p1.x - p0.x;
+        const dy = p1.y - p0.y;
+        let angle = Math.round(Math.atan2(dy, dx) * 180 / Math.PI + 90);
+        if (angle < 0) angle += 360;
+        angleStr = `${angle}deg, `;
+      }
+      return `linear-gradient(${angleStr}${stops})`;
+    } else if (fill.type === 'GRADIENT_RADIAL') {
+      return `radial-gradient(circle, ${stops})`;
+    } else if (fill.type === 'GRADIENT_ANGULAR') {
+      return `conic-gradient(${stops})`;
+    } else if (fill.type === 'GRADIENT_DIAMOND') {
+      return `radial-gradient(ellipse, ${stops})`;
+    }
+    return `linear-gradient(${stops})`;
+  }
+
+  _parseMixedText(node) {
+    const chars = node.characters || '';
+    if (!chars) return '';
+    const overrides = node.characterStyleOverrides;
+    const table = node.styleOverrideTable;
+    
+    if (!overrides || !table || !overrides.length || Object.keys(table).length === 0) {
+      return this._escapeHtml(chars);
+    }
+    
+    let html = '';
+    let currentStyleId = overrides[0];
+    let startIdx = 0;
+    
+    for (let i = 1; i <= chars.length; i++) {
+      const styleId = i < chars.length ? overrides[i] : null;
+      if (styleId !== currentStyleId || i === chars.length) {
+        const textSegment = chars.substring(startIdx, i);
+        const styleObj = currentStyleId ? table[currentStyleId] : null;
+        
+        if (styleObj && Object.keys(styleObj).length > 0) {
+          const styles = {};
+          this._extractFills({ fills: styleObj.fills }, styles);
+          this._extractTextStyles({ type: 'TEXT', style: styleObj }, styles);
+          
+          let styleStr = '';
+          for (const [prop, val] of Object.entries(styles)) {
+            styleStr += `${prop}:${val};`;
+          }
+          if (styleStr) {
+            html += `<span style="${styleStr}">${this._escapeHtml(textSegment)}</span>`;
+          } else {
+            html += this._escapeHtml(textSegment);
+          }
+        } else {
+          html += this._escapeHtml(textSegment);
+        }
+        
+        currentStyleId = styleId;
+        startIdx = i;
+      }
+    }
+    return html;
   }
 }

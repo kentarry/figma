@@ -185,7 +185,7 @@ async function cleanExpired() {
 }
 
 // Run startup cleanup
-// cleanExpired();
+cleanExpired().catch(() => {});
 
 // ── Express Middleware ──
 

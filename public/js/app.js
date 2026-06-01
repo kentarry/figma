@@ -1336,6 +1336,11 @@ class App {
       this._updateUndoRedoButtons();
     };
 
+    // Hook keyboard save shortcut
+    this.visualEditor.onSaveShortcut = () => {
+      this._saveToServer();
+    };
+
     // Hook image loading errors
     this.visualEditor.onImageErrors = (errors) => {
       this._checkImageErrors();

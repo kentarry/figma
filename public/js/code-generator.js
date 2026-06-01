@@ -13,11 +13,49 @@ export class CodeGenerator {
       naming: options.naming || 'kebab-case',
       units: options.units || 'px',
       includeReset: options.includeReset !== false,
+      useCssVariables: options.useCssVariables !== false,
       ...options,
     };
 
-    const html = this.generateHtml(parsedTree, 0);
-    const css = this._buildCssOutput();
+    let html = this.generateHtml(parsedTree, 0);
+    
+    // 1. Extract CSS variables for colors
+    let rootVars = '';
+    if (this.options.useCssVariables) {
+      const colorMap = new Map();
+      let colorCount = 0;
+      
+      for (const rule of this.cssRules) {
+        for (const [prop, val] of Object.entries(rule.styles)) {
+          if (typeof val === 'string' && (val.startsWith('rgb') || val.startsWith('#'))) {
+            if (val.includes('gradient')) continue;
+            
+            if (!colorMap.has(val)) {
+              colorCount++;
+              colorMap.set(val, `--color-${colorCount}`);
+            }
+            rule.styles[prop] = `var(${colorMap.get(val)})`;
+          }
+        }
+      }
+      
+      if (colorMap.size > 0) {
+        rootVars = `/* Colors */\n:root {\n`;
+        for (const [val, varName] of colorMap.entries()) {
+          rootVars += `  ${varName}: ${val};\n`;
+        }
+        rootVars += `}\n\n`;
+      }
+    }
+    
+    const css = rootVars + this._buildCssOutput();
+
+    // 2. Inject RWD scale-to-fit Javascript if enabled
+    if (this.options.responsive === 'scale-fit' && parsedTree && parsedTree.bounds) {
+      const w = Math.round(parsedTree.bounds.width) || 1280;
+      const h = Math.round(parsedTree.bounds.height) || 720;
+      html += `\n<!-- RWD Scale Script -->\n<script>\n(function() {\n  const designWidth = ${w};\n  const designHeight = ${h};\n  const container = document.querySelector('.${parsedTree._resolvedClass}') || document.body.firstElementChild;\n  if (!container) return;\n\n  function doScale() {\n    const ww = window.innerWidth;\n    const scale = ww / designWidth;\n    \n    container.style.transform = 'scale(' + scale + ')';\n    container.style.transformOrigin = 'left top';\n    container.style.width = designWidth + 'px';\n    container.style.height = designHeight + 'px';\n    \n    if (container.parentElement && container.parentElement !== document.body) {\n      container.parentElement.style.height = (designHeight * scale) + 'px';\n      container.parentElement.style.overflow = 'hidden';\n    } else {\n      document.body.style.height = (designHeight * scale) + 'px';\n      document.body.style.overflowX = 'hidden';\n    }\n  }\n\n  window.addEventListener('resize', doScale);\n  window.addEventListener('load', doScale);\n  doScale();\n})();\n</script>\n`;
+    }
 
     return { html, css };
   }
@@ -44,7 +82,7 @@ export class CodeGenerator {
     }
 
     if (node.type === 'TEXT' || !node.children?.length) {
-      const content = this._escapeHtml(node.characters || '');
+      const content = node.mixedCharacters || this._escapeHtml(node.characters || '');
       if (!content && tag === 'div') {
         return `${pad}<div class="${className}" data-figma-name="${this._escapeAttr(node.name)}"></div>\n`;
       }

@@ -39,9 +39,14 @@ const router = Router();
  * Returns the resolved full path, or null if it escapes the base directory.
  */
 function safeguardPath(userPath, baseDir = LOCAL_DIR) {
-  const sanitized = userPath.replace(/\.\./g, '');
-  const fullPath = resolve(baseDir, sanitized);
-  if (!fullPath.startsWith(baseDir)) return null;
+  if (!userPath || typeof userPath !== 'string' || userPath.includes('\0')) {
+    return null;
+  }
+  const resolvedBase = resolve(baseDir);
+  const fullPath = resolve(resolvedBase, userPath);
+  if (!fullPath.toLowerCase().startsWith(resolvedBase.toLowerCase())) {
+    return null;
+  }
   return fullPath;
 }
 

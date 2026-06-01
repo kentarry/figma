@@ -2,6 +2,9 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { exec } from 'child_process';
+import fs from 'fs/promises';
+import crypto from 'crypto';
+import path from 'path';
 
 // ── Module imports ──
 import ingameRoutes from './ingame-routes.js';
@@ -9,6 +12,67 @@ import { getCachedResponse, setCachedResponse, cacheMiddleware, clearDiskCache }
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// 圖片快取目錄
+const IMAGE_CACHE_DIR = path.join(__dirname, '.cache/images');
+
+async function getCachedImage(url) {
+  try {
+    const hash = crypto.createHash('sha256').update(url).digest('hex');
+    const metaPath = path.join(IMAGE_CACHE_DIR, `${hash}.json`);
+    const imgPath = path.join(IMAGE_CACHE_DIR, `${hash}.bin`);
+    
+    const [metaRaw, buffer] = await Promise.all([
+      fs.readFile(metaPath, 'utf-8'),
+      fs.readFile(imgPath)
+    ]);
+    const meta = JSON.parse(metaRaw);
+    return { buffer, contentType: meta.contentType };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function saveCachedImage(url, buffer, contentType) {
+  try {
+    await fs.mkdir(IMAGE_CACHE_DIR, { recursive: true });
+    const hash = crypto.createHash('sha256').update(url).digest('hex');
+    const metaPath = path.join(IMAGE_CACHE_DIR, `${hash}.json`);
+    const imgPath = path.join(IMAGE_CACHE_DIR, `${hash}.bin`);
+    
+    await Promise.all([
+      fs.writeFile(metaPath, JSON.stringify({ contentType, timestamp: Date.now() }), 'utf-8'),
+      fs.writeFile(imgPath, buffer)
+    ]);
+  } catch (e) {
+    console.error('[Image Cache] Failed to write cache:', e.message);
+  }
+}
+
+// CSRF Defense middleware for local routes
+const csrfProtection = (req, res, next) => {
+  const origin = req.headers.origin;
+  const referer = req.headers.referer;
+  
+  const isLocal = (urlStr) => {
+    try {
+      const parsed = new URL(urlStr);
+      return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1' || parsed.hostname === '::1';
+    } catch (e) {
+      return false;
+    }
+  };
+  
+  if (origin && !isLocal(origin)) {
+    console.warn(`[CSRF Blocked] Origin: ${origin}`);
+    return res.status(403).json({ error: 'CSRF Protection: Forbidden origin.' });
+  }
+  if (referer && !isLocal(referer)) {
+    console.warn(`[CSRF Blocked] Referer: ${referer}`);
+    return res.status(403).json({ error: 'CSRF Protection: Forbidden referer.' });
+  }
+  next();
+};
 
 const app = express();
 const PORT = 3000;
@@ -35,6 +99,7 @@ app.use((req, res, next) => {
 app.use(express.static('./public'));
 
 // ── Mount ingame routes (includes /ingame-assets static + /api/local/* + /Action fallback) ──
+app.use('/api/local', csrfProtection);
 app.use(ingameRoutes);
 
 // ── Figma API helpers ──
@@ -239,8 +304,32 @@ app.get('/api/figma/image-proxy', async (req, res) => {
   const { url } = req.query;
   if (!url) return res.status(400).json({ error: 'Missing url query parameter.' });
 
+  // 1. SSRF domain check
+  try {
+    const parsedUrl = new URL(url);
+    const allowedDomains = ['s3-alpha-sig.figma.com', 'figma-alpha-sig.s3.amazonaws.com', 'figma.com'];
+    const isAllowed = allowedDomains.some(domain => 
+      parsedUrl.hostname === domain || parsedUrl.hostname.endsWith('.' + domain)
+    );
+    if (!isAllowed) {
+      console.warn(`[SSRF Blocked] URL: ${url}`);
+      return res.status(403).json({ error: 'Forbidden domain for image proxy.' });
+    }
+  } catch (e) {
+    return res.status(400).json({ error: 'Invalid url.' });
+  }
+
+  // 2. Try Disk Cache
+  const cached = await getCachedImage(url);
+  if (cached) {
+    res.set('Content-Type', cached.contentType);
+    res.set('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year in browser if disk-cached
+    res.set('Access-Control-Allow-Origin', '*');
+    return res.send(cached.buffer);
+  }
+
   const MAX_RETRIES = 2;
-  const TIMEOUT_MS = 30000; // 30s for large images (some are 2808×1576)
+  const TIMEOUT_MS = 30000; // 30s for large images
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
@@ -271,15 +360,19 @@ app.get('/api/figma/image-proxy', async (req, res) => {
         });
       }
 
-      const contentType = imageRes.headers.get('content-type');
-      if (contentType) {
-        res.set('Content-Type', contentType);
-      }
+      const contentType = imageRes.headers.get('content-type') || 'image/png';
+      res.set('Content-Type', contentType);
       // Cache successfully fetched images for 1 hour in the browser
       res.set('Cache-Control', 'public, max-age=3600');
       res.set('Access-Control-Allow-Origin', '*');
 
       const buffer = Buffer.from(await imageRes.arrayBuffer());
+      
+      // Save cache asynchronously
+      saveCachedImage(url, buffer, contentType).catch(e => {
+        console.error('[Image Cache] Background write failed:', e);
+      });
+
       res.send(buffer);
       return;
     } catch (err) {
